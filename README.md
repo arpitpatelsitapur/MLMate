@@ -2,7 +2,7 @@
 
 <!-- Banner -->
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=2563eb,1d4ed8&height=200&section=header&text=MLMate&fontSize=70&fontColor=fff" alt="MLMate Banner"/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:2563eb,100:1d4ed8&height=200&section=header&text=MLMate&fontSize=70&fontColor=fff" alt="MLMate Banner"/>
 </p>
 
 <h4>Welcome to <b>MLMate</b> — a free, no-login quiz app for anyone learning or revising <b>AI, ML, Docker, LLMs, and more</b>. Pick a skill, select a section, attempt MCQs, and see the <b>correct answer + explanation instantly</b>. No timers. No pressure. Just learning. ✨</h4>
