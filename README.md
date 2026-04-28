@@ -79,7 +79,9 @@
 
 ## 📸 Preview
 
-> Sidebar navigation on the left, MCQ quiz on the right — clean and distraction-free.
+<div align="center">
+     <img src="home_preview.png" alt="preview" width="1000"/>
+</div>
 
 ---
 
@@ -122,16 +124,10 @@
 
 ## 🚀 Getting Started
 
-```bash
-# 1. Clone the repo
-git clone https://github.com/arpitpatelsitapur/MLMate.git
-
-# 2. Open in your browser — no install needed
-cd MLMate
-open index.html
-```
-
-That's it. No `npm install`, no build tools.
+- Go to webiste [MLMate](https://mlmate.netlify.app/)
+- Select a skill
+- Select a section
+- Attend MCQs and see score
 
 ---
 
@@ -164,18 +160,6 @@ All questions live in `questions.js`. Each question follows this structure:
 4. Open a **Pull Request** with a short description of what you added
 
 > Please keep explanations factual, concise, and beginner-friendly.
-
----
-
-## 📁 Project Structure
-
-```
-MLMate/
-├── index.html        # Main app — all UI and logic
-├── questions.js      # All skills, sections, and questions
-├── LICENSE
-└── README.md
-```
 
 ---
 
