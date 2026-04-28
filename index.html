@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLMate – Quiz for AI/ML Folks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --card-bg: #ffffff;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --blue-light: #dbeafe;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --green: #16a34a;
+      --red: #dc2626;
+      --yellow: #f59e0b;
+      --radius: 14px;
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      --sidebar-w: 270px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--bg);
+      border-bottom: 2px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: #ffffff;
+      border: 2px solid var(--text);
+      border-radius: 8px;
+      background: var(--blue);
+      padding: 0.07rem 0.9rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .nav-btn {
+      background: var(--blue);
+      color: #fff;
+      border: 2px solid var(--text);
+      border-radius: 8px;
+      padding: 0.45rem 1.1rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .nav-btn:hover {
+      background: var(--blue-dark);
+    }
+
+    /* PAGES */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 2rem 1.5rem 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 0.55rem 1.4rem;
+      border-radius: 8px;
+      margin-bottom: 1.2rem;
+      border: 2px solid var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 2rem;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .stat {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--blue);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* SECTION */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 900;
+      margin-bottom: 1.8rem;
+      text-align: center;
+    }
+
+    /* FOR WHOM */
+    .for-whom {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+    }
+
+    .for-whom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .for-whom-card {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+
+    .for-whom-card .icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .for-whom-card h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .for-whom-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    /* SKILLS GRID */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .skill-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+    }
+
+    .skill-card:not(.inactive):hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .skill-card.inactive {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .skill-card-header {
+      background: var(--blue);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-card.inactive .skill-card-header {
+      background: #9ca3af;
+    }
+
+    .skill-card-body {
+      padding: 1rem;
+    }
+
+    .skill-card-body h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+    }
+
+    .skill-card-body p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 0.8rem;
+    }
+
+    .skill-meta {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .badge {
+      background: var(--blue-light);
+      color: var(--blue);
+      border-radius: 5px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .badge.gray {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .coming-soon-tag {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #f3f4f6;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    /* HOW IT WORKS */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .how-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .how-num {
+      width: 40px;
+      height: 40px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      margin: 0 auto 0.8rem;
+      border: 2px solid var(--text);
+    }
+
+    .how-card h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .how-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 2px solid var(--border);
+      padding: 2rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    /* ===== SKILL PAGE ===== */
+    .skill-page-header {
+      background: var(--blue);
+      color: #fff;
+      padding: 1rem 1.5rem;
+    }
+
+    .skill-page-header .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 0.4rem 0.9rem;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      transition: background 0.15s;
+    }
+
+    .skill-page-header .back-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .skill-page-header h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 0.3rem;
+    }
+
+    .skill-page-header p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      font-weight: 600;
+    }
+
+    /* ===== SKILL LAYOUT: SIDEBAR + QUIZ ===== */
+    .skill-body {
+      display: flex;
+      min-height: calc(100vh - 64px);
+      align-items: flex-start;
+    }
+
+    /* LEFT SIDEBAR */
+    .skill-sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--card-bg);
+      border-right: 2px solid var(--border);
+      min-height: calc(100vh - 64px);
+      padding: 1.5rem 1rem;
+      position: sticky;
+      top: 64px;
+      overflow-y: auto;
+      max-height: calc(100vh - 64px);
+    }
+
+    .sidebar-heading {
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+      padding: 0 0.4rem;
+    }
+
+    .sidebar-section-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      width: 100%;
+      background: none;
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 0.8rem;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text);
+      transition: background 0.15s, color 0.15s;
+      margin-bottom: 3px;
+      line-height: 1.35;
+    }
+
+    .sidebar-section-btn:hover {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .sidebar-section-btn.active {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .sidebar-section-btn.active .sec-q-count {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    .sec-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .sec-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sec-name {
+      font-weight: 800;
+      white-space: normal;
+    }
+
+    .sec-q-count {
+      display: inline-block;
+      margin-top: 3px;
+      background: var(--blue-light);
+      color: var(--blue);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 1rem 0;
+    }
+
+    .sidebar-skill-info {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .sidebar-skill-info .ssi-name {
+      font-weight: 900;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+
+    .sidebar-skill-info .ssi-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    /* RIGHT: QUIZ CONTENT */
+    .skill-main {
+      flex: 1;
+      min-width: 0;
+      padding: 2rem 2rem 2rem;
+    }
+
+    .quiz-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* QUIZ AREA */
+    .quiz-progress {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 8px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--blue);
+      border-radius: 999px;
+      transition: width 0.3s;
+    }
+
+    .progress-text {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .q-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .q-num {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+
+    .q-text {
+      font-size: 1.1rem;
+      font-weight: 800;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .q-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .opt-btn {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem 1.1rem;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .opt-btn:not(.answered):hover {
+      border-color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .opt-btn.correct {
+      background: #dcfce7;
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .opt-btn.wrong {
+      background: #fee2e2;
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .opt-btn.neutral-after {
+      opacity: 0.6;
+    }
+
+    .opt-letter {
+      width: 28px;
+      height: 28px;
+      background: var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .opt-btn.correct .opt-letter {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .opt-btn.wrong .opt-letter {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .explanation-box {
+      background: var(--blue-light);
+      border: 2px solid var(--blue);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      line-height: 1.5;
+      display: none;
+    }
+
+    .explanation-box.show {
+      display: block;
+    }
+
+    .next-btn {
+      margin-top: 1.2rem;
+      background: var(--blue);
+      color: #fff;
+      border: 2px solid var(--text);
+      border-radius: 10px;
+      padding: 0.7rem 1.6rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: none;
+      transition: background 0.15s;
+    }
+
+    .next-btn:hover {
+      background: var(--blue-dark);
+    }
+
+    .next-btn.show {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* RESULTS */
+    .results-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      border: 3px solid var(--text);
+    }
+
+    .score-num {
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      opacity: 0.85;
+    }
+
+    .results-card h3 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+
+    .results-card p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 0.6rem 1.3rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: border-color 0.15s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      border: 2px solid var(--text);
+      border-radius: 10px;
+      padding: 0.6rem 1.3rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: #fff;
+      transition: background 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+    }
+
+    /* Empty state */
+    .quiz-empty-state {
+      text-align: center;
+      padding: 5rem 2rem;
+      color: var(--muted);
+    }
+
+    .quiz-empty-state .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .quiz-empty-state p {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .quiz-empty-state small {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.83rem;
+      font-weight: 600;
+    }
+
+    /* Mobile toggle for sidebar */
+    .sidebar-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 0.45rem 0.9rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.82rem;
+      cursor: pointer;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 3rem 1rem 2rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      /* Sidebar goes on top on mobile */
+      .skill-body {
+        flex-direction: column;
+      }
+
+      .skill-sidebar {
+        width: 100%;
+        min-height: unset;
+        position: relative;
+        top: 0;
+        max-height: unset;
+        border-right: none;
+        border-bottom: 2px solid var(--border);
+        padding: 1rem;
+      }
+
+      /* Collapsible on mobile */
+      .skill-sidebar.collapsed .sidebar-sections-list {
+        display: none;
+      }
+
+      .sidebar-toggle {
+        display: flex;
+      }
+
+      .skill-main {
+        padding: 1.5rem 1rem 4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="#" onclick="showPage('home')">MLMate</a>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home')">Home</a></li>
+      <li><a href="#" onclick="scrollToSkills()">Skills</a></li>
+      <li><a href="https://github.com/arpitpatelsitapur" target="_blank">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/arpitpatelsitapur" target="_blank" class="nav-btn">Contribute on GitHub</a>
+  </nav>
+
+  <!-- ===== HOME PAGE ===== -->
+  <div id="page-home" class="page active">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-badge">Built for AI/ML Practitioners</div>
+      <h1>Test Your AI & ML Knowledge with One Quiz at a Time</h1>
+      <p>No timers. No pressure. Pick a skill, attempt questions, and see the answer instantly after every option. Learn
+        by doing.</p>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Active Skills</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">10</div>
+          <div class="stat-label">New Questions Daily</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">No Timer</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">Zero Fee</div>
+          <div class="stat-label">Free Forever</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section class="section">
+      <h2 class="section-title">How It Works</h2>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-num">1</div>
+          <h4>Pick a Skill</h4>
+          <p>Choose from ML, Docker, Python, LLMs and more categories.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">2</div>
+          <h4>Select a Section</h4>
+          <p>Each skill has sub-topics. Focus on exactly what you want to revise.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">3</div>
+          <h4>Attempt MCQs</h4>
+          <p>Click any option — the correct answer reveals instantly with an explanation.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">4</div>
+          <h4>See Your Score</h4>
+          <p>At the end, review your performance and retry if needed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOR WHOM -->
+    <section class="section" style="padding-top: 0;">
+      <div class="for-whom">
+        <h2 class="section-title" style="margin-bottom:0.3rem;">Who is MLMate for?</h2>
+        <p style="text-align:center;color:var(--muted);font-size:0.9rem;font-weight:600;margin-bottom:0">Anyone leveling
+          up in AI/ML — from beginners to experienced practitioners</p>
+        <div class="for-whom-grid">
+          <div class="for-whom-card">
+            <span class="icon">🎓</span>
+            <div>
+              <h4>Students & Freshers</h4>
+              <p>Crack ML interviews and solidify concepts from your courses.</p>
+            </div>
+          </div>
+          <div class="for-whom-card">
+            <span class="icon">💼</span>
+            <div>
+              <h4>Job Seekers</h4>
+              <p>Prep for Data Scientist / ML Engineer / AI Engineer roles fast.</p>
+            </div>
+          </div>
+          <div class="for-whom-card">
+            <span class="icon">🧑‍💻</span>
+            <div>
+              <h4>Working Professionals</h4>
+              <p>Quickly revise concepts you haven't used in a while on the job.</p>
+            </div>
+          </div>
+          <div class="for-whom-card">
+            <span class="icon">📚</span>
+            <div>
+              <h4>Daily Learners</h4>
+              <p>Practice 5–10 questions every day and track steady improvement.</p>
+            </div>
+          </div>
+          <div class="for-whom-card">
+            <span class="icon">🔁</span>
+            <div>
+              <h4>Revision Warriors</h4>
+              <p>Use as a spaced repetition companion alongside your study notes.</p>
+            </div>
+          </div>
+          <div class="for-whom-card">
+            <span class="icon">🚀</span>
+            <div>
+              <h4>Bootcamp Graduates</h4>
+              <p>Bridge the gap between project work and conceptual depth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills-section" style="padding-top:0;">
+      <h2 class="section-title">Browse Skills</h2>
+      <div class="skills-grid" id="home-skills-grid"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 MLMate · Made with ❤️ by <a href="https://github.com/arpitpatelsitapur" target="_blank">Arpit Patel</a>
+      </p>
+      <div style="display:flex;gap:1rem;">
+        <a href="https://github.com/arpitpatelsitapur" target="_blank">GitHub</a>
+        <a href="#" onclick="showPage('home')">Home</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===== SKILL PAGE ===== -->
+  <div id="page-skill" class="page">
+
+    <!-- Top header bar -->
+    <div class="skill-page-header" id="skill-header">
+      <button class="back-btn" onclick="showPage('home')">← Back to Skills</button>
+      <h2 id="skill-title">Machine Learning</h2>
+      <p id="skill-desc">Select a section on the left to start the quiz</p>
+    </div>
+
+    <!-- Two-column layout: Sidebar + Main -->
+    <div class="skill-body">
+
+      <!-- LEFT SIDEBAR -->
+      <aside class="skill-sidebar" id="skill-sidebar">
+
+        <!-- Skill summary chip -->
+        <div class="sidebar-skill-info">
+          <div class="ssi-name" id="sidebar-skill-name">Machine Learning</div>
+          <div class="ssi-meta" id="sidebar-skill-meta">0 sections · 0 questions</div>
+        </div>
+
+        <div class="sidebar-heading">Sections</div>
+
+        <!-- Mobile toggle -->
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+          ☰ <span id="sidebar-toggle-label">Show Sections</span>
+        </button>
+
+        <!-- Sections list -->
+        <div class="sidebar-sections-list" id="sidebar-sections-list">
+          <!-- Rendered by JS -->
+        </div>
+
+      </aside>
+
+      <!-- RIGHT: Quiz content -->
+      <main class="skill-main">
+        <div class="quiz-wrap" id="quiz-area">
+          <div class="quiz-empty-state">
+            <div class="empty-icon">👈</div>
+            <p>Pick a section from the sidebar to begin</p>
+            <small>Each section is independent — choose any topic</small>
+          </div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- DATA -->
+  <script src="questions.js"></script>
+
+  <!-- STATE & LOGIC -->
+  <script>
+    let currentSkill = null;
+    let currentSection = null;
+    let currentQ = 0;
+    let answered = false;
+    let score = 0;
+    let sidebarCollapsed = false;
+
+    // ============================================================
+    // Render home skills grid
+    // ============================================================
+    function renderSkillsGrid() {
+      const grid = document.getElementById('home-skills-grid');
+      grid.innerHTML = SKILLS.map(skill => `
+        <div class="skill-card ${skill.active ? '' : 'inactive'}" 
+             onclick="${skill.active ? `openSkill('${skill.id}')` : ''}">
+          ${!skill.active ? '<span class="coming-soon-tag">Coming Soon</span>' : ''}
+          <div class="skill-card-header">${skill.icon} ${skill.name}</div>
+          <div class="skill-card-body">
+            <p>${skill.desc}</p>
+            <div class="skill-meta">
+              ${skill.active
+          ? `<span class="badge">${skill.sections.reduce((acc, s) => acc + s.questions.length, 0)} Questions</span>
+                   <span class="badge">${skill.sections.length} Sections</span>`
+          : `<span class="badge gray">Locked</span>`
+        }
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ============================================================
+    // Navigation
+    // ============================================================
+    function showPage(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function scrollToSkills() {
+      showPage('home');
+      setTimeout(() => document.getElementById('skills-section').scrollIntoView({ behavior: 'smooth' }), 100);
+    }
+
+    function toggleSidebar() {
+      sidebarCollapsed = !sidebarCollapsed;
+      const sidebar = document.getElementById('skill-sidebar');
+      const label = document.getElementById('sidebar-toggle-label');
+      sidebar.classList.toggle('collapsed', sidebarCollapsed);
+      label.textContent = sidebarCollapsed ? 'Show Sections' : 'Hide Sections';
+    }
+
+    // ============================================================
+    // Open a skill → render sidebar
+    // ============================================================
+    function openSkill(skillId) {
+      currentSkill = SKILLS.find(s => s.id === skillId);
+      currentSection = null;
+      currentQ = 0;
+      score = 0;
+
+      // Header
+      document.getElementById('skill-title').textContent = currentSkill.icon + ' ' + currentSkill.name;
+      document.getElementById('skill-desc').textContent = currentSkill.desc;
+
+      // Sidebar meta
+      const totalQ = currentSkill.sections.reduce((acc, s) => acc + s.questions.length, 0);
+      document.getElementById('sidebar-skill-name').textContent = currentSkill.icon + ' ' + currentSkill.name;
+      document.getElementById('sidebar-skill-meta').textContent =
+        `${currentSkill.sections.length} section${currentSkill.sections.length !== 1 ? 's' : ''} · ${totalQ} questions`;
+
+      // Render sidebar sections
+      renderSidebarSections();
+
+      // Reset quiz area
+      document.getElementById('quiz-area').innerHTML = `
+        <div class="quiz-empty-state">
+          <div class="empty-icon">👈</div>
+          <p>Pick a section from the sidebar to begin</p>
+          <small>Each section is independent — choose any topic</small>
+        </div>`;
+
+      showPage('skill');
+    }
+
+    // ============================================================
+    // Sidebar sections list
+    // ============================================================
+    function renderSidebarSections(activeSectionId) {
+      const list = document.getElementById('sidebar-sections-list');
+      list.innerHTML = currentSkill.sections.map((sec, i) => `
+        <button 
+          class="sidebar-section-btn ${sec.id === activeSectionId ? 'active' : ''}" 
+          id="sidebar-tab-${sec.id}"
+          onclick="openSection('${sec.id}')">
+          <span class="sec-icon">${getSectionIcon(i)}</span>
+          <span class="sec-info">
+            <span class="sec-name">${sec.name}</span>
+            <span class="sec-q-count">${sec.questions.length} Q</span>
+          </span>
+        </button>
+      `).join('');
+    }
+
+    function getSectionIcon(index) {
+      const icons = ['📋', '🎯', '🧩', '⚡', '🔬', '📊', '🛠️', '🚀'];
+      return icons[index % icons.length];
+    }
+
+    // ============================================================
+    // Open a section
+    // ============================================================
+    function openSection(sectionId) {
+      currentSection = currentSkill.sections.find(s => s.id === sectionId);
+      currentQ = 0;
+      score = 0;
+      answered = false;
+
+      // Update sidebar active state
+      renderSidebarSections(sectionId);
+
+      // On mobile, collapse sidebar after picking
+      if (window.innerWidth <= 768) {
+        sidebarCollapsed = true;
+        document.getElementById('skill-sidebar').classList.add('collapsed');
+        document.getElementById('sidebar-toggle-label').textContent = 'Show Sections';
+      }
+
+      renderQuestion();
+    }
+
+    // ============================================================
+    // Quiz rendering
+    // ============================================================
+    function renderQuestion() {
+      const area = document.getElementById('quiz-area');
+      if (currentQ >= currentSection.questions.length) {
+        renderResults();
+        return;
+      }
+
+      const q = currentSection.questions[currentQ];
+      const letters = ['A', 'B', 'C', 'D'];
+      const pct = Math.round((currentQ / currentSection.questions.length) * 100);
+
+      area.innerHTML = `
+        <div class="quiz-progress">
+          <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+          <span class="progress-text">Q${currentQ + 1} / ${currentSection.questions.length}</span>
+        </div>
+        <div class="q-card">
+          <div class="q-num">Question ${currentQ + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">
+            ${q.options.map((opt, i) => `
+              <button class="opt-btn" id="opt-${i}" onclick="selectOption(${i})">
+                <span class="opt-letter">${letters[i]}</span>
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+          <div class="explanation-box" id="explanation"><b>Explanation:</b> ${q.explanation}</div>
+          <button class="next-btn" id="next-btn" onclick="nextQuestion()">
+            ${currentQ + 1 === currentSection.questions.length ? 'See Results →' : 'Next Question →'}
+          </button>
+        </div>
+      `;
+      answered = false;
+    }
+
+    function selectOption(idx) {
+      if (answered) return;
+      answered = true;
+
+      const q = currentSection.questions[currentQ];
+      const btns = document.querySelectorAll('.opt-btn');
+
+      btns.forEach((btn, i) => {
+        btn.classList.add('answered');
+        if (i === q.answer) btn.classList.add('correct');
+        else if (i === idx && idx !== q.answer) btn.classList.add('wrong');
+        else btn.classList.add('neutral-after');
+      });
+
+      if (idx === q.answer) score++;
+
+      document.getElementById('explanation').classList.add('show');
+      document.getElementById('next-btn').classList.add('show');
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      answered = false;
+      renderQuestion();
+    }
+
+    // ============================================================
+    // Results
+    // ============================================================
+    function renderResults() {
+      const total = currentSection.questions.length;
+      const pct = Math.round((score / total) * 100);
+      let msg = pct >= 80 ? "🔥 Excellent work!" : pct >= 60 ? "👍 Good job!" : "📚 Keep practicing!";
+
+      document.getElementById('quiz-area').innerHTML = `
+        <div class="results-card">
+          <div class="score-circle">
+            <span class="score-num">${score}/${total}</span>
+            <span class="score-label">SCORE</span>
+          </div>
+          <h3>${msg}</h3>
+          <p>You scored ${pct}% in <strong>${currentSection.name}</strong></p>
+          <div class="results-actions">
+            <button class="btn-outline" onclick="openSection('${currentSection.id}')">🔄 Retry Section</button>
+            <button class="btn-primary" onclick="showPage('home')">🏠 Back to Skills</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // ============================================================
+    // Init
+    // ============================================================
+    renderSkillsGrid();
+  </script>
+</body>
+
+</html>
