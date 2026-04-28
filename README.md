@@ -77,18 +77,6 @@
 
 ---
 
-# 🤖 MLMate
-
-**A quiz app built for AI/ML folks — no timers, no login, no fluff.**
-
-Pick a skill → select a section → attempt MCQs → see the answer + explanation instantly.
-
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-MLMate-2563eb?style=for-the-badge)](https://mlmate.netlify.app/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
-[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-orange?style=for-the-badge)](#-contributing)
-
----
-
 ## 📸 Preview
 
 > Sidebar navigation on the left, MCQ quiz on the right — clean and distraction-free.
