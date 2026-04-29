@@ -113,6 +113,12 @@ const SKILLS = [
             options: ["PYTHONUNBUFFERED=1", "PYTHONDONTWRITEBYTECODE=1", "PYTHON_NO_CACHE=true", "PIP_NO_CACHE_DIR=1"],
             answer: 1,
             explanation: "This variable tells Python not to write bytecode files to disk, which is useful in ephemeral container environments."
+          },
+          {
+            q: "Which instruction defines the command that always runs and treats CMD as arguments for that command?",
+            options: ["ENTRYPOINT", "RUN", "START", "EXEC"],
+            answer: 0,
+            explanation: "ENTRYPOINT makes the container run like an executable, where CMD values are passed as parameters to it."
           }
         ]
       },
@@ -149,6 +155,30 @@ const SKILLS = [
             options: ["docker build -t my-model:v1 .", "docker tag my-model:v1 .", "docker run --name my-model:v1 .", "docker image create -t my-model:v1 ."],
             answer: 0,
             explanation: "The -t flag allows you to name and tag the image, and the '.' specifies the build context."
+          },
+          {
+            q: "How can you pass a GPU device to a container for model inference using the Docker CLI?",
+            options: ["--device gpu0", "--enable-cuda", "-v /dev/nvidia0:/dev/nvidia0", "--gpus all"],
+            answer: 3,
+            explanation: "The --gpus flag is the standard way to expose host GPUs to a container using the NVIDIA Container Toolkit."
+          },
+          {
+            q: "When using 'docker stop', what signal is first sent to the process inside the container?",
+            options: ["SIGSTOP", "SIGKILL", "SIGTERM", "SIGINT"],
+            answer: 2,
+            explanation: "SIGTERM allows the process to perform cleanup and shut down gracefully."
+          },
+          {
+            q: "Which command allows you to execute an interactive bash shell inside an already running container?",
+            options: ["docker open container_id", "docker attach container_id", "docker exec -it container_id bash", "docker run -it container_id bash"],
+            answer: 2,
+            explanation: "The 'exec' command runs a new command (like bash) within a currently running container session."
+          },
+          {
+            q: "What happens if you don't include a 'tag' (like :v1) when pulling an image?",
+            options: ["SIGSTOP", "SIGKILL", "SIGTERM", "SIGINT"],
+            answer: 2,
+            explanation: "SIGTERM allows the process to perform cleanup and shut down gracefully."
           }
         ]
       },
@@ -161,6 +191,18 @@ const SKILLS = [
             options: ["To list the Python dependencies that should be ignored.", "To prevent sensitive files like env or large datasets from being sent to the Docker daemon.", "To bypass Docker's layer caching mechanism.", "To stop Docker from running certain commands."],
             answer: 1,
             explanation: "It functions like gitignore, ensuring that unnecessary or private files don't bloat the build context or end up in the image."
+          }
+        ]
+      },
+      {
+        id: "networks",
+        name: "Docker Networks",
+        questions: [
+          {
+            q: "Which of the following is the default network driver for containers on a single host?",
+            options: ["Host", "None", "Overlay", "Bridge"],
+            answer: 3,
+            explanation: "The bridge driver creates a private internal network on the host so containers can communicate."
           }
         ]
       },
@@ -179,6 +221,12 @@ const SKILLS = [
             options: ["To list the Python dependencies that should be ignored.", "To prevent sensitive files like env or large datasets from being sent to the Docker daemon.", "To bypass Docker's layer caching mechanism.", "To stop Docker from running certain commands."],
             answer: 1,
             explanation: "It functions like gitignore, ensuring that unnecessary or private files don't bloat the build context or end up in the image."
+          },
+          {
+            q: "What is a 'dangling' image in Docker?",
+            options: ["An image that is currently being uploaded to Docker Hub.", "An image specifically designed for ARM processors.", "An image that has no name or tag, usually created when rebuilding an image with the same name.", "An image that is missing essential layers and cannot run."],
+            answer: 2,
+            explanation: "These occur when a new build takes over a tag, leaving the old layers without a reference name."
           }
         ]
       },
@@ -199,6 +247,36 @@ const SKILLS = [
             explanation: "It functions like gitignore, ensuring that unnecessary or private files don't bloat the build context or end up in the image."
           }
         ]
+      },
+      {
+        id: "dockercompose",
+        name: "Docker Compose - Multi-container orchestration",
+        questions: [
+          {
+            q: "In Docker Compose, which keyword is used to ensure a database container starts before the Python API container?",
+            options: ["wait_for", "order", "links", "depends_on"],
+            answer: 3,
+            explanation: "This defines the dependency order, ensuring the service listed is started before the dependent service."
+          },
+          {
+            q: "In a Dockerfile, what is the purpose of the 'dockerignore' file?",
+            options: ["To list the Python dependencies that should be ignored.", "To prevent sensitive files like env or large datasets from being sent to the Docker daemon.", "To bypass Docker's layer caching mechanism.", "To stop Docker from running certain commands."],
+            answer: 1,
+            explanation: "It functions like gitignore, ensuring that unnecessary or private files don't bloat the build context or end up in the image."
+          }
+        ]
+      },
+      {
+        id: "dockerhub",
+        name: "Docker Hub",
+        questions: [
+          {
+            q: "What happens if you don't include a 'tag' (like :v1) when pulling an image?",
+            options: ["Docker will pull the smallest version available.", "The pull command will fail with a 'Missing Tag' error.", "Docker will pull all available versions of that image.", "Docker will pull the version tagged ':latest' by default."],
+            answer: 1,
+            explanation: "If no tag is specified, the engine assumes the user wants the image version labeled 'latest'."
+          }
+        ]
       }
     ]
   },
@@ -212,6 +290,16 @@ const SKILLS = [
   { id: "mlops", name: "MLOps", icon: "⚙️", active: false, desc: "MLflow, BentoML, model serving & monitoring", sections: [] },
   { id: "vector", name: "Vector DBs", icon: "🔍", active: false, desc: "Embeddings, Pinecone, FAISS, Chroma & ANN", sections: [] },
 ];
+
+
+
+
+
+
+
+
+
+
 
 
 
