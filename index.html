@@ -4,7 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MLMate – Quiz for AI/ML Folks</title>
+  <title>MLMate – Practice AI, Machine Learning & Docker MCQs | Free Quiz Platform</title>
+  <meta name="description"
+    content="Practice AI, Machine Learning, Docker, NLP & Deep Learning MCQs with detailed explanations. Free quiz platform for interview preparation.">
+  <meta property="og:title" content="MLMate - AI & ML Quiz Platform">
+  <meta property="og:description" content="Practice ML, AI, Docker, NLP quizzes with explanations.">
+  <meta property="og:url" content="https://mlmate.in">
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
@@ -833,7 +839,7 @@
       color: var(--muted);
     }
 
-    .quiz-empty-state .empty-icon {
+    .quiz-empty-state {
       font-size: 3rem;
       margin-bottom: 1rem;
     }
@@ -935,7 +941,7 @@
     <!-- HERO -->
     <div class="hero">
       <div class="hero-badge">Built for AI/ML Practitioners</div>
-      <h1>Test Your AI & ML Knowledge with One Quiz at a Time</h1>
+      <h1>AI & Machine Learning Quiz Platform – Practice ML, Docker & NLP MCQs</h1>
       <p>No timers. No pressure. Pick a skill, attempt questions, and see the answer instantly after every option. Learn
         by doing.</p>
 
@@ -958,6 +964,25 @@
         </div>
       </div>
     </div>
+
+    <section class="section">
+      <div class="for-whom">
+        <h2 class="section-title">AI & Machine Learning Quiz Platform</h2>
+        <p>
+          MLMate is a free AI and Machine Learning quiz platform designed for students,
+          job seekers, and professionals. Practice MCQs on Machine Learning, Docker,
+          Deep Learning, NLP, and LLMs with detailed explanations.
+        </p><br>
+        <div class="for-whom-card">
+          <h3>Popular Topics</h3>
+          <div>Machine Learning MCQs</div>
+          <div>Docker Interview Questions</div>
+          <div>Deep Learning Quiz</div>
+          <div>NLP Questions and Answers</div>
+          <div>LLM and Transformer Concepts</div>
+        </div>
+      </div>
+    </section>
 
     <!-- HOW IT WORKS -->
     <section class="section">
@@ -1096,7 +1121,6 @@
       <main class="skill-main">
         <div class="quiz-wrap" id="quiz-area">
           <div class="quiz-empty-state">
-            <div class="empty-icon">👈</div>
             <p>Pick a section from the sidebar to begin</p>
             <small>Each section is independent — choose any topic</small>
           </div>
@@ -1189,7 +1213,6 @@
       // Reset quiz area
       document.getElementById('quiz-area').innerHTML = `
         <div class="quiz-empty-state">
-          <div class="empty-icon">👈</div>
           <p>Pick a section from the sidebar to begin</p>
           <small>Each section is independent — choose any topic</small>
         </div>`;
@@ -1207,7 +1230,7 @@
           class="sidebar-section-btn ${sec.id === activeSectionId ? 'active' : ''}" 
           id="sidebar-tab-${sec.id}"
           onclick="openSection('${sec.id}')">
-          <span class="sec-icon">${getSectionIcon(i)}</span>
+          
           <span class="sec-info">
             <span class="sec-name">${sec.name}</span>
             <span class="sec-q-count">${sec.questions.length} Q</span>
@@ -1216,10 +1239,10 @@
       `).join('');
     }
 
-    function getSectionIcon(index) {
-      const icons = ['📋', '🎯', '🧩', '⚡', '🔬', '📊', '🛠️', '🚀'];
-      return icons[index % icons.length];
-    }
+    //function getSectionIcon(index) {
+    //  const icons = ['📋', '🎯', '🧩', '⚡', '🔬', '📊', '🛠️', '🚀'];
+    //  return icons[index % icons.length];
+    //}
 
     // ============================================================
     // Open a section
@@ -1337,6 +1360,20 @@
     // ============================================================
     renderSkillsGrid();
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "MLMate",
+  "url": "https://mlmate.in",
+  "description": "AI and Machine Learning quiz platform with MCQs and explanations",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://mlmate.in/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 </body>
 
 </html>

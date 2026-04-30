@@ -137,6 +137,24 @@ const SKILLS = [
             options: ["LABEL", "TAG", "METADATA", "INFO"],
             answer: 0,
             explanation: "LABEL allows you to add key-value pairs as metadata to organize your images or record build info."
+          },
+          {
+            q: "When using multi-stage builds, which command is used to bring a file from a previous stage into the final production image?",
+            options: ["ADD --stage=0 /path /dest", "IMPORT /path", "COPY --from=build /path /dest", "RUN move stage1:/path /dest"],
+            answer: 2,
+            explanation: "The --from flag in the COPY instruction allows you to reference files created in earlier stages of the Dockerfile."
+          },
+          {
+            q: "Which instruction sets the default user for the container to prevent it from running with root privileges?",
+            options: ["SUDO", "LOGIN", "CHOWN", "USER"],
+            answer: 3,
+            explanation: "The USER instruction sets the UID or username used to run the subsequent instructions and the container itself."
+          },
+          {
+            q: "To avoid installing unnecessary development tools in your final image, you should use which type of base image for a pure Python deployment?",
+            options: ["python:3.11-alpine", "python:3.11-slim", "python:3.11-full", "python:3.11-windowsservercore"],
+            answer: 1,
+            explanation: "Slim images are Debian-based (offering high compatibility) but stripped of extra packages, making them ideal for production."
           }
         ]
       },
@@ -215,6 +233,24 @@ const SKILLS = [
             options: ["docker kill", "docker stop", "docker rm -f", "docker pause"],
             answer: 0,
             explanation: "This sends a SIGKILL signal, which immediately terminates the main process of the container."
+          },
+          {
+            q: "Which command would you use to see the amount of CPU and Memory currently being consumed by all running containers in real-time?",
+            options: ["docker top", "docker stats", "docker inspect", "docker ps"],
+            answer: 1,
+            explanation: "This command provides a live stream of resource usage statistics for your containers."
+          },
+          {
+            q: "In a Dockerfile, if you use 'ENTRYPOINT ['python', 'app.py']' and then run 'docker run my-image --debug', what happens?",
+            options: ["The '--debug' flag replaces 'python app.py' entirely.", "The container ignored the flag and runs 'python app.py' normally.", "The container fails to start because '--debug' is not an image.", "The '--debug' flag is passed as an argument to 'python app.py'."],
+            answer: 3,
+            explanation: "The exec form of ENTRYPOINT treats arguments passed to 'docker run' as parameters for the command."
+          },
+          {
+            q: "How do you view which files have changed in a container's writable layer compared to its original image?",
+            options: ["docker history", "docker inspect", "docker logs", "docker diff"],
+            answer: 3,
+            explanation: "This command lists the files and directories that have been Added, Changed, or Deleted in the container."
           }
         ]
       },
@@ -329,6 +365,12 @@ const SKILLS = [
             options: ["host", "bridge_default", "projectname_default", "docker_compose_net"],
             answer: 2,
             explanation: "Compose creates a dedicated network for each project, naming it after the directory/project plus '_default'."
+          },
+          {
+            q: "Which Docker command is used to upload a local image to a registry like Docker Hub or Google Container Registry?",
+            options: ["docker commit", "docker push", "docker upload", "docker send"],
+            answer: 1,
+            explanation: "Push is the standard command to send an image from your local machine to a remote registry."
           }
         ]
       },
@@ -353,6 +395,12 @@ const SKILLS = [
             options: ["To bypass the need for a .dockerignore file.", "To train the model on CPU in stage 1 and GPU in stage 2.", "To use a heavy build environment with compilers to install wheels, then copy only the installed packages to a clean final image.", "To allow multiple users to build the image at the same time."],
             answer: 2,
             explanation: "This results in a production-ready image without the gigabytes of build-time tools."
+          },
+          {
+            q: "You have updated your code and want to rebuild the image, but you noticed it's taking a long time because it's re-installing all pip packages. What is the most likely cause?",
+            options: ["You didn't use the '--no-cache' flag during build.", "Pip doesn't support Docker caching.", "The Docker daemon is running out of disk space.", "You are COPYing all files (COPY . .) before running 'pip install'."],
+            answer: 3,
+            explanation: "Changing any file in the build context invalidates the cache for that step and all subsequent steps, so the code change forces a re-install."
           }
         ]
       }
@@ -368,61 +416,6 @@ const SKILLS = [
   { id: "mlops", name: "MLOps", icon: "⚙️", active: false, desc: "MLflow, BentoML, model serving & monitoring", sections: [] },
   { id: "vector", name: "Vector DBs", icon: "🔍", active: false, desc: "Embeddings, Pinecone, FAISS, Chroma & ANN", sections: [] },
 ];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
