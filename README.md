@@ -101,7 +101,7 @@
 | Skill | Sections | Questions | Status |
 |---|---|---|---|
 | 🤖 Machine Learning | Data Preprocessing & EDA, Model Evaluation & Bias-Variance | 5 | ✅ Active |
-| 🐳 Docker | Dockerfile, CLI Commands, Config Files, Cleanup & Deletion | 18 | ✅ Active |
+| 🐳 Docker | Dockerfile, CLI Commands, Config Files, Cleanup & Deletion | 48 | ✅ Active |
 | 🧬 Deep Learning | — | — | 🔜 Coming Soon |
 | 💬 LLMs & Transformers | — | — | 🔜 Coming Soon |
 | 📝 NLP | — | — | 🔜 Coming Soon |
