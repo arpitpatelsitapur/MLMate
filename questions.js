@@ -119,6 +119,24 @@ const SKILLS = [
             options: ["ENTRYPOINT", "RUN", "START", "EXEC"],
             answer: 0,
             explanation: "ENTRYPOINT makes the container run like an executable, where CMD values are passed as parameters to it."
+          },
+          {
+            q: "Which Dockerfile instruction is used to document the internal ports the container listens on?",
+            options: ["OPEN", "PORT", "PUBLISH", "EXPOSE"],
+            answer: 3,
+            explanation: "EXPOSE serves as documentation and metadata between the image builder and the operator."
+          },
+          {
+            q: "What is the purpose of 'HEALTHCHECK' in a Dockerfile?",
+            options: ["To check if the container has enough CPU power.", "To tell Docker how to test if the application inside the container is still working correctly.", "To verify that all Python libraries are installed.", "To scan the image for security vulnerabilities."],
+            answer: 1,
+            explanation: "It allows the Docker engine to see if a process is 'healthy' rather than just 'running'."
+          },
+          {
+            q: "Which instruction is used to provide metadata for your image, such as maintainer info or versioning?",
+            options: ["LABEL", "TAG", "METADATA", "INFO"],
+            answer: 0,
+            explanation: "LABEL allows you to add key-value pairs as metadata to organize your images or record build info."
           }
         ]
       },
@@ -175,10 +193,28 @@ const SKILLS = [
             explanation: "The 'exec' command runs a new command (like bash) within a currently running container session."
           },
           {
-            q: "What happens if you don't include a 'tag' (like :v1) when pulling an image?",
-            options: ["SIGSTOP", "SIGKILL", "SIGTERM", "SIGINT"],
-            answer: 2,
-            explanation: "SIGTERM allows the process to perform cleanup and shut down gracefully."
+            q: "How do you limit a container to use only 512MB of RAM?",
+            options: ["--memory 512m", "-limit-mem 512m", "--ram 512m", "ENV MAX_MEMORY=512m"],
+            answer: 0,
+            explanation: "This flag sets the hard limit for the amount of memory the container can consume."
+          },
+          {
+            q: "Which command shows only the IDs of all running containers?",
+            options: ["docker list id", "docker ps -q", "docker inspect --ids", "docker ps -a"],
+            answer: 1,
+            explanation: "The -q (quiet) flag restricts the output to only display the numeric container IDs."
+          },
+          {
+            q: "Which Docker command shows you the history of changes/layers for a specific image?",
+            options: ["docker log", "docker image history", "docker inspect", "docker diff"],
+            answer: 1,
+            explanation: "This shows the size and creation command for each layer in the image."
+          },
+          {
+            q: "When troubleshooting a Python application that has stopped responding, which command allows you to immediately terminate the container without waiting for a graceful shutdown?",
+            options: ["docker kill", "docker stop", "docker rm -f", "docker pause"],
+            answer: 0,
+            explanation: "This sends a SIGKILL signal, which immediately terminates the main process of the container."
           }
         ]
       },
@@ -203,6 +239,12 @@ const SKILLS = [
             options: ["Host", "None", "Overlay", "Bridge"],
             answer: 3,
             explanation: "The bridge driver creates a private internal network on the host so containers can communicate."
+          },
+          {
+            q: "You are running a Vector Database in one container and a Python API in another on the same host. Which network driver should you use to allow them to communicate using container names?",
+            options: ["Host", "None", "Overlay", "Bridge"],
+            answer: 3,
+            explanation: "A user-defined bridge network provides automatic service discovery, allowing containers to find each other via their names."
           }
         ]
       },
@@ -227,6 +269,12 @@ const SKILLS = [
             options: ["An image that is currently being uploaded to Docker Hub.", "An image specifically designed for ARM processors.", "An image that has no name or tag, usually created when rebuilding an image with the same name.", "An image that is missing essential layers and cannot run."],
             answer: 2,
             explanation: "These occur when a new build takes over a tag, leaving the old layers without a reference name."
+          },
+          {
+            q: "Which flag is used to automatically remove a container when it exits?",
+            options: ["--rm", "--rmi", "--auto-delete", "--cleanup"],
+            answer: 0,
+            explanation: "This is highly useful for one-off tasks (like model conversion scripts) to prevent accumulating 'dead' containers."
           }
         ]
       },
@@ -245,6 +293,24 @@ const SKILLS = [
             options: ["To list the Python dependencies that should be ignored.", "To prevent sensitive files like env or large datasets from being sent to the Docker daemon.", "To bypass Docker's layer caching mechanism.", "To stop Docker from running certain commands."],
             answer: 1,
             explanation: "It functions like gitignore, ensuring that unnecessary or private files don't bloat the build context or end up in the image."
+          },
+          {
+            q: "What is the primary difference between a Docker Volume and a Bind Mount?",
+            options: ["Bind mounts are encrypted by default.", "Volumes are read-only, while bind mounts are read-write.", "Volumes are faster for AI model training than bind mounts.", "Volumes are stored in a part of the host filesystem managed by Docker; bind mounts can be anywhere."],
+            answer: 3,
+            explanation: "Both can be read-only or read-write; the difference lies in management and storage location. Volumes are more isolated and managed by the Docker engine, whereas bind mounts depend on the host's directory structure."
+          },
+          {
+            q: "To prevent a memory-intensive model training job from being killed by the Linux Out-Of-Memory (OOM) killer, which flag should you use to set a hard limit of 8GB?",
+            options: ["-v 8g", "--max-memory 8g", "-m 8g", "--cpu-quota 8000"],
+            answer: 2,
+            explanation: "The -m or --memory flag sets the maximum amount of RAM the container can use."
+          },
+          {
+            q: "If you want to ensure that your model's weight files (e.g., .bin or .safetensors) are NOT included in the Docker image during the build process, where should you list them?",
+            options: [".gitignore", "requirements.txt", "Dockerfile", ".dockerignore"],
+            answer: 3,
+            explanation: "This file explicitly tells Docker which local files and directories to exclude from the build context."
           }
         ]
       },
@@ -259,10 +325,10 @@ const SKILLS = [
             explanation: "This defines the dependency order, ensuring the service listed is started before the dependent service."
           },
           {
-            q: "In a Dockerfile, what is the purpose of the 'dockerignore' file?",
-            options: ["To list the Python dependencies that should be ignored.", "To prevent sensitive files like env or large datasets from being sent to the Docker daemon.", "To bypass Docker's layer caching mechanism.", "To stop Docker from running certain commands."],
-            answer: 1,
-            explanation: "It functions like gitignore, ensuring that unnecessary or private files don't bloat the build context or end up in the image."
+            q: "In Docker Compose, what is the default name given to the network created for your services?",
+            options: ["host", "bridge_default", "projectname_default", "docker_compose_net"],
+            answer: 2,
+            explanation: "Compose creates a dedicated network for each project, naming it after the directory/project plus '_default'."
           }
         ]
       },
@@ -275,6 +341,18 @@ const SKILLS = [
             options: ["Docker will pull the smallest version available.", "The pull command will fail with a 'Missing Tag' error.", "Docker will pull all available versions of that image.", "Docker will pull the version tagged ':latest' by default."],
             answer: 1,
             explanation: "If no tag is specified, the engine assumes the user wants the image version labeled 'latest'."
+          }
+        ]
+      },
+      {
+        id: "dockerbuild",
+        name: "Docker Build",
+        questions: [
+          {
+            q: "Why would an AI engineer use a multi-stage build for a PyTorch application?",
+            options: ["To bypass the need for a .dockerignore file.", "To train the model on CPU in stage 1 and GPU in stage 2.", "To use a heavy build environment with compilers to install wheels, then copy only the installed packages to a clean final image.", "To allow multiple users to build the image at the same time."],
+            answer: 2,
+            explanation: "This results in a production-ready image without the gigabytes of build-time tools."
           }
         ]
       }
@@ -290,6 +368,35 @@ const SKILLS = [
   { id: "mlops", name: "MLOps", icon: "⚙️", active: false, desc: "MLflow, BentoML, model serving & monitoring", sections: [] },
   { id: "vector", name: "Vector DBs", icon: "🔍", active: false, desc: "Embeddings, Pinecone, FAISS, Chroma & ANN", sections: [] },
 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
