@@ -919,6 +919,81 @@
         padding: 1.5rem 1rem 4rem;
       }
     }
+
+    /* ===== PLATFORM SECTION ===== */
+.platform-section {
+  padding-top: 0;
+}
+
+.platform-wrap {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 2rem 2.2rem;
+}
+
+.platform-wrap .section-title {
+  margin-bottom: 0.6rem;
+}
+
+.platform-intro {
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-weight: 600;
+  line-height: 1.65;
+  max-width: 680px;
+  margin: 0 auto 1.6rem;
+  text-align: center;
+}
+
+.platform-topics {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.3rem;
+}
+
+.platform-topic-label {
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.platform-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.platform-chip {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--blue);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .platform-wrap {
+    padding: 1.4rem 1rem 1.6rem;
+  }
+
+  .platform-intro {
+    font-size: 0.88rem;
+  }
+
+  .platform-chip {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.7rem;
+  }
+}
+
   </style>
 </head>
 
@@ -965,7 +1040,7 @@
       </div>
     </div>
 
-    <section class="section">
+    <!-- <section class="section">
       <div class="for-whom">
         <h2 class="section-title">AI & Machine Learning Quiz Platform</h2>
         <p>
@@ -980,6 +1055,28 @@
           <div>Deep Learning Quiz</div>
           <div>NLP Questions and Answers</div>
           <div>LLM and Transformer Concepts</div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- AI & ML Platform Section for SEO purposes -->
+    <section class="section platform-section">
+      <div class="platform-wrap">
+        <h2 class="section-title">AI & Machine Learning Quiz Platform</h2>
+        <p class="platform-intro">
+          MLMate is a free AI and Machine Learning quiz platform designed for students,
+          job seekers, and professionals. Practice MCQs on Machine Learning, Docker,
+          Deep Learning, NLP, and LLMs with detailed explanations.
+        </p>
+        <div class="platform-topics">
+          <div class="platform-topic-label">Popular Topics</div>
+          <div class="platform-chips">
+            <span class="platform-chip">Machine Learning MCQs</span>
+            <span class="platform-chip">Docker Interview Questions</span>
+            <span class="platform-chip">Deep Learning Quiz</span>
+            <span class="platform-chip">NLP Questions and Answers</span>
+            <span class="platform-chip">LLM and Transformer Concepts</span>
+          </div>
         </div>
       </div>
     </section>
