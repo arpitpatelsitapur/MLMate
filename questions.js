@@ -32,12 +32,66 @@ const SKILLS = [
             options: ["Bar chart", "Pie chart", "Box plot", "Heatmap"],
             answer: 2,
             explanation: "Box plots visually represent the IQR (interquartile range) and display points beyond 1.5×IQR as outliers, making them ideal for outlier detection."
+          },
+          {
+            q: "When performing Exploratory Data Analysis (EDA) on a dataset with high cardinality categorical features (e.g., 'User_ID' or 'Zip_Code'), which technique is most effective for visualizing their relationship with a continuous target variable without creating an unreadable chart?",
+            options: ["Pie chart of the category distribution", "Box plots of the top N most frequent categories", "Heatmap of the raw categories", "A single scatter plot of all categories vs target"],
+            answer: 1,
+            explanation: "Focusing on the most frequent categories allows for a legible comparison of distributions and outliers for the most impactful groups."
+          },
+          {
+            q: "You are dealing with a dataset where 30% of the values in a critical feature are missing. The data is determined to be 'Missing at Random' (MAR). Which approach is generally preferred over simple mean imputation to preserve the variance of the dataset?",
+            options: ["Zero-filling the missing entries", "Mean imputation", "Iterative Imputation (MICE)", "Dropping rows"],
+            answer: 2,
+            explanation: "Multivariate Imputation by Chained Equations (MICE) models each feature with missing values as a function of other features, preserving relationships and variance."
+          },
+          {
+            q: "In the context of Feature Engineering, why might you prefer Target Encoding over One-Hot Encoding for a categorical feature with 500 unique levels?",
+            options: ["Target encoding increases the dimensionality of the dataset", "Target encoding is immune to overfitting", "Target encoding ignores the relationship with the label", "To avoid the 'Curse of Dimensionality'"],
+            answer: 3,
+            explanation: "Target encoding maps categories to a single numeric column, preventing the massive sparse matrix that one-hot encoding would create with 500 levels."
+          },
+          {
+            q: "When scaling features for a Support Vector Machine (SVM) or K-Nearest Neighbors (KNN) model, why is Standardization (Z-score normalization) often preferred over Min-Max Scaling if the data contains outliers?",
+            options: ["Min-Max Scaling is significantly squeezed by outliers", "Standardization makes the data perfectly normally distributed", "SVMs cannot process negative values produced by standardization", "Standardization bounds the data between 0 and 1"],
+            answer: 0,
+            explanation: "Min-Max uses the absolute minimum and maximum; if an outlier is very large, it 'squeezes' all normal data points into a very tiny range near 0."
+          },
+          {
+            q: "During EDA, you calculate the Pearson correlation coefficient between two variables and get a value of 0.02. What is the most accurate conclusion?",
+            options: ["There is no linear relationship between the variables", "The variables are independent", "There is a strong non-linear relationship", "One variable causes the other to increase slightly"],
+            answer: 0,
+            explanation: "Pearson correlation measures linear association; a value near zero indicates the absence of a linear trend."
+          },
+          {
+            q: "What is the primary risk of performing feature selection (like selecting the top 10 correlated features) on the entire dataset before splitting it into training and testing sets?",
+            options: ["Underfitting", "Reduced feature variance", "Increased computation time", "Data Leakage"],
+            answer: 3,
+            explanation: "By using the whole dataset, information from the 'future' test set influences which features are chosen, leading to overly optimistic performance estimates."
+          },
+          {
+            q: "In Feature Engineering, what is the purpose of 'Interaction Features'?",
+            options: ["To normalize the distribution of skewed data", "To capture the combined effect of two variables that isn't purely additive", "To reduce the number of features in the model", "To automatically handle missing values"],
+            answer: 1,
+            explanation: "Sometimes the impact of one variable depends on the level of another (e.g., age and exercise levels on health), which interaction terms help model."
+          },
+          {
+            q: "Which visualization is best suited for identifying the presence and distribution of outliers in a single numerical feature?",
+            options: ["Bar chart", "Pie chart", "Box plot", "Line chart"],
+            answer: 2,
+            explanation: "Box plots specifically highlight 'whiskers' and individual points (fliers) that fall outside the interquartile range, making outliers easy to spot."
+          },
+          {
+            q: "When dealing with skewed numerical data (e.g., income), a Log Transformation is often applied. What is a key requirement for the data before applying a standard log(x) transformation?",
+            options: ["The data must be scaled between 0 and 1", "All values must be greater than zero", "The feature must be categorical", "The data must already be normally distributed"],
+            answer: 1,
+            explanation: "The logarithm of zero or negative numbers is undefined in real numbers, so the data must be strictly positive."
           }
         ]
       },
       {
         id: "evaluation",
-        name: "Model Evaluation & Bias-Variance",
+        name: "Model Evaluation, Cross-Validation & Bias-Variance Tradeoff",
         questions: [
           {
             q: "What does a high variance model suffer from?",
@@ -416,6 +470,30 @@ const SKILLS = [
   { id: "mlops", name: "MLOps", icon: "⚙️", active: false, desc: "MLflow, BentoML, model serving & monitoring", sections: [] },
   { id: "vector", name: "Vector DBs", icon: "🔍", active: false, desc: "Embeddings, Pinecone, FAISS, Chroma & ANN", sections: [] },
 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
