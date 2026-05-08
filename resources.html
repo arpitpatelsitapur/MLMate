@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Best AI & Machine Learning Resources – Books, Courses, Tools | MLMate</title>
+  <meta name="description"
+    content="Curated AI and Machine Learning learning resources — best books, free courses, YouTube channels, AI tools, communities and research papers.">
+  <link rel="canonical" href="https://mlmate.in/resources.html" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Resources page specific ─────────────────────── */
+    .res-hero {
+      text-align: center;
+      padding: 3rem 1.5rem 1.5rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .res-hero h1 {
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+      color: #fff;
+    }
+
+    .res-hero p {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 600;
+      line-height: 1.7;
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 0 1.5rem;
+    }
+
+    .filter-btn {
+      background: #1a1a1a;
+      border: 1px solid #2e2e2e;
+      border-radius: 8px;
+      padding: 0.42rem 1.1rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.82rem;
+      cursor: pointer;
+      color: #666;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover {
+      background: #222;
+      color: #ccc;
+      border-color: #444;
+    }
+
+    .filter-btn.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      background: #111;
+      border: 1px solid #252525;
+      border-left: 3px solid var(--blue);
+      border-radius: 10px;
+      padding: 0.85rem 1.2rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.81rem;
+      color: #b2b2b2;
+      font-weight: 600;
+    }
+
+    .disclaimer strong {
+      color: #aaa;
+    }
+
+    /* Search bar */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 0.65rem 1rem 0.65rem 2.6rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #f0f0f0;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .search-wrap input::placeholder {
+      color: #707070;
+    }
+
+    .search-wrap input:focus {
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8e8e8e;
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    /* Table container */
+    .table-wrap {
+      background: #0f0f0f;
+      border: 1px solid #222;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    /* Stats bar above table */
+    .table-stats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.75rem 1.2rem;
+      background: #111;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .table-stats-left {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #9f9f9f;
+    }
+
+    .table-stats-left span {
+      color: var(--blue);
+    }
+
+    .table-stats-right {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #929292;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Table itself */
+    .res-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    /* Header */
+    .res-table thead tr {
+      background: #141414;
+      border-bottom: 1px solid #242424;
+    }
+
+    .res-table thead th {
+      padding: 0.75rem 1.1rem;
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #3b82f6;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.13s;
+    }
+
+    .res-table thead th:hover {
+      color: #93c5fd;
+    }
+
+    .res-table thead th .sort-arrow {
+      margin-left: 4px;
+      opacity: 0.4;
+      font-size: 0.65rem;
+    }
+
+    .res-table thead th.sorted .sort-arrow {
+      opacity: 1;
+      color: var(--blue);
+    }
+
+    /* Body */
+    .res-table tbody tr {
+      background: #0f0f0f;
+      border-bottom: 1px solid #191919;
+      transition: background 0.12s;
+    }
+
+    .res-table tbody tr:nth-child(even) {
+      background: #111;
+    }
+
+    .res-table tbody tr:hover {
+      background: #161616;
+    }
+
+    .res-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    /* Empty state */
+    .no-results {
+      padding: 3rem;
+      text-align: center;
+      background: #0f0f0f;
+      color: #c1c1c1;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    /* Cells */
+    .res-table td {
+      padding: 0.85rem 1.1rem;
+      vertical-align: middle;
+      color: #d0d0d0;
+    }
+
+    /* # col */
+    .col-num {
+      width: 40px;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: #a0a0a0;
+      font-weight: 700;
+    }
+
+    /* Category col */
+    .col-cat {
+      width: 110px;
+    }
+
+    .cat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.71rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .cat-books {
+      background: rgba(168, 85, 247, 0.12);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .cat-courses {
+      background: rgba(59, 130, 246, 0.12);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .cat-tools {
+      background: rgba(34, 197, 94, 0.12);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .cat-youtube {
+      background: rgba(239, 68, 68, 0.12);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .cat-community {
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .cat-papers {
+      background: rgba(20, 184, 166, 0.12);
+      color: #2dd4bf;
+      border: 1px solid rgba(20, 184, 166, 0.2);
+    }
+
+    /* Name col */
+    .col-name {
+      min-width: 200px;
+      max-width: 280px;
+    }
+
+    .col-name a {
+      font-weight: 800;
+      font-size: 0.87rem;
+      color: #e8e8e8;
+      text-decoration: none;
+      transition: color 0.13s;
+      line-height: 1.35;
+    }
+
+    .col-name a:hover {
+      color: var(--blue);
+    }
+
+    .ext-arrow {
+      font-size: 0.62rem;
+      opacity: 0.35;
+      margin-left: 3px;
+    }
+
+    /* Desc col */
+    .col-desc {
+      min-width: 240px;
+      max-width: 360px;
+    }
+
+    .col-desc p {
+      font-size: 0.8rem;
+      color: #cecdcd;
+      font-weight: 600;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Level col */
+    .col-level {
+      width: 140px;
+      white-space: nowrap;
+    }
+
+    .level-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.71rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .lvl-beginner {
+      background: rgba(34, 197, 94, 0.1);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .lvl-intermediate {
+      background: rgba(245, 158, 11, 0.1);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .lvl-advanced {
+      background: rgba(239, 68, 68, 0.1);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .lvl-all {
+      background: rgba(59, 130, 246, 0.1);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    /* Topics col */
+    .col-topics {
+      min-width: 130px;
+    }
+
+    .topic-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    .t-chip {
+      font-size: 0.66rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      background: #161616;
+      border: 1px solid #2a2a2a;
+      border-radius: 5px;
+      color: #c6c6c6;
+      white-space: nowrap;
+    }
+
+    /* Cost col */
+    .col-cost {
+      width: 100px;
+      white-space: nowrap;
+    }
+
+    .cost-badge {
+      display: inline-block;
+      font-size: 0.71rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .cost-free {
+      background: rgba(34, 197, 94, 0.1);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .cost-paid {
+      background: rgba(245, 158, 11, 0.1);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    /* CTA */
+    .cta-banner {
+      background: #0f0f0f;
+      border: 1px solid #1e1e1e;
+      border-top: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .cta-banner h2 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .cta-banner p {
+      font-size: 0.9rem;
+      color: #555;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Mobile */
+    @media(max-width:768px) {
+
+      .col-desc,
+      .col-num,
+      .col-topics {
+        display: none;
+      }
+
+      .res-table thead th,
+      .res-table td {
+        padding: 0.7rem 0.75rem;
+      }
+    }
+
+    @media(max-width:500px) {
+
+      .col-level,
+      .col-cost {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div id="token-streams" aria-hidden="true"></div>
+  <div id="page">
+
+    <nav>
+      <a class="logo" href="index.html">MLMate</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#skills-section">Skills</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="resources.html" style="color:var(--blue)">Resources</a></li>
+        <li><a href="https://github.com/arpitpatelsitapur/MLMate" target="_blank">GitHub</a></li>
+      </ul>
+      <a href="quiz.html" class="nav-btn">Start Quiz →</a>
+    </nav>
+
+    <div class="res-hero">
+      <div class="hero-badge">Curated by Practitioners</div>
+      <h1>AI & ML Learning Resources</h1>
+      <p>The best books, courses, tools, channels and communities — in one searchable, filterable table.</p>
+    </div>
+
+    <div class="section" style="padding-top:0;max-width:1200px;">
+
+      <div class="disclaimer"><strong>Note:</strong> Genuine recommendations — not sponsored links. Paid resources are
+        labeled. Free alternatives always listed where possible.</div>
+
+      <!-- Filter tabs -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="books">📚 Books</button>
+        <button class="filter-btn" data-filter="courses">🎓 Courses</button>
+        <button class="filter-btn" data-filter="tools">🛠️ AI Tools</button>
+        <button class="filter-btn" data-filter="youtube">▶️ YouTube</button>
+        <button class="filter-btn" data-filter="community">🤝 Community</button>
+        <button class="filter-btn" data-filter="papers">📄 Papers</button>
+      </div>
+
+      <!-- Search -->
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="res-search" placeholder="Search resources…" autocomplete="off" />
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <div class="table-stats">
+          <div class="table-stats-left">Showing <span id="row-count">34</span> resources</div>
+          <div class="table-stats-right">Click column headers to sort</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="res-table" id="res-table">
+            <thead>
+              <tr>
+                <th class="col-num">#</th>
+                <th data-col="category">Category <span class="sort-arrow">↕</span></th>
+                <th data-col="name">Name <span class="sort-arrow">↕</span></th>
+                <th class="col-desc">Description</th>
+                <th data-col="level">Level <span class="sort-arrow">↕</span></th>
+                <th>Topics</th>
+                <th data-col="cost">Cost <span class="sort-arrow">↕</span></th>
+              </tr>
+            </thead>
+            <tbody id="res-tbody"></tbody>
+          </table>
+          <div class="no-results" id="no-results" style="display:none;">No resources match your filters.</div>
+        </div>
+      </div>
+
+      <div class="cta-banner">
+        <h2>Test what you've learned</h2>
+        <p>Resources are great. Practice makes it stick.</p>
+        <a href="quiz.html" class="nav-btn" style="display:inline-block;font-size:1rem;padding:0.7rem 2rem;">Start
+          Practicing →</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2026 MLMate · Made with ❤️ by <a href="https://github.com/arpitpatelsitapur" target="_blank">Arpit Patel</a>
+      </p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="index.html">Home</a><a href="quiz.html">Quiz</a><a href="about.html">About</a>
+        <a href="resources.html">Resources</a><a href="https://github.com/arpitpatelsitapur/MLMate"
+          target="_blank">GitHub</a>
+      </div>
+    </footer>
+
+  </div><!-- #page -->
+
+  <script>
+    // ── DATA ─────────────────────────────────────────────────────────
+    const RESOURCES = [
+      // BOOKS
+      { category: 'books', name: 'Hands-On ML with Scikit-Learn, Keras & TF', url: 'https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/', desc: "Aurélien Géron's practical bible for ML. Full spectrum from linear regression to deep learning with real code.", level: 'beginner', topics: ['ML', 'DL', 'Scikit-learn'], cost: 'paid' },
+      { category: 'books', name: 'Dive into Deep Learning (d2l.ai)', url: 'https://d2l.ai/', desc: 'Interactive DL book with PyTorch, TensorFlow, and JAX. Used in 400+ universities worldwide.', level: 'intermediate', topics: ['Deep Learning', 'PyTorch', 'JAX'], cost: 'free' },
+      { category: 'books', name: 'Introduction to Statistical Learning (ISLR)', url: 'https://www.statlearning.com/', desc: 'Readable stats and ML theory. Brilliant for understanding the math behind algorithms without being overwhelming.', level: 'beginner', topics: ['ML', 'Stats', 'R/Python'], cost: 'free' },
+      { category: 'books', name: 'Deep Learning – Goodfellow, Bengio & Courville', url: 'https://www.deeplearningbook.org/', desc: 'The definitive deep learning theory textbook. Dense but authoritative — essential for serious practitioners.', level: 'advanced', topics: ['Deep Learning', 'Theory'], cost: 'free' },
+      { category: 'books', name: 'NLP with Transformers (Hugging Face)', url: 'https://www.oreilly.com/library/view/natural-language-processing/9781098136789/', desc: 'By Lewis Tunstall et al. Go-to practical guide for modern NLP with the Transformers library.', level: 'intermediate', topics: ['NLP', 'Transformers', 'HuggingFace'], cost: 'paid' },
+      // COURSES
+      { category: 'courses', name: 'ML Specialization – Andrew Ng (Coursera)', url: 'https://www.coursera.org/specializations/machine-learning-introduction', desc: 'The gold standard ML course. Updated with modern NumPy and scikit-learn. Start here if new to ML.', level: 'beginner', topics: ['ML', 'NumPy', 'Scikit-learn'], cost: 'free' },
+      // TOOLS
+      { category: 'tools', name: 'Google Gemini', url: 'https://gemini.google.com', desc: 'Excellent for explaining ML concepts, debugging code, and generating practice questions. Generous free tier.', level: 'all', topics: ['AI Assistant', 'Code Debug'], cost: 'free' },
+      { category: 'tools', name: 'Claude (Anthropic)', url: 'https://claude.ai', desc: 'Great for in-depth technical explanations, code reviews, and long study sessions. Handles complex ML really well.', level: 'all', topics: ['AI Assistant', 'Code Review'], cost: 'free' },
+      { category: 'tools', name: 'Google Colab', url: 'https://colab.research.google.com', desc: 'Free Jupyter notebooks in the cloud with GPU access. Go-to environment for ML experiments without local setup.', level: 'all', topics: ['Notebooks', 'GPU', 'Python'], cost: 'free' },
+      { category: 'tools', name: 'Kaggle', url: 'https://kaggle.com', desc: 'Competitions, datasets, free GPU notebooks, active community. 2-3 competitions is worth more than most courses.', level: 'intermediate', topics: ['ML Practice', 'Datasets', 'GPU'], cost: 'free' },
+      // YOUTUBE
+      { category: 'youtube', name: '3Blue1Brown', url: 'https://www.youtube.com/@3blue1brown', desc: "Stunning visual math explanations. Neural Networks series and Linear Algebra playlist are must-watches.", level: 'beginner', topics: ['Math', 'DL Intuition', 'Visuals'], cost: 'free' },
+      { category: 'youtube', name: 'Andrej Karpathy', url: 'https://www.youtube.com/@AndrejKarpathy', desc: '"Neural Networks: Zero to Hero" is world-class. Build GPT from scratch, step by step. Ex-Tesla AI director.', level: 'intermediate', topics: ['DL', 'LLMs', 'GPT'], cost: 'free' },
+      { category: 'youtube', name: 'CampusX', url: 'https://www.youtube.com/@campusx-official', desc: 'Excellent Hindi-medium ML & DS content. Structured playlists covering ML algorithms, stats, and Python.', level: 'beginner', topics: ['ML', 'Python', 'Hindi'], cost: 'free' },
+      // COMMUNITY
+      { category: 'community', name: 'r/MachineLearning', url: 'https://www.reddit.com/r/MachineLearning/', desc: 'Active research-focused subreddit. Great for paper discussions, career advice, and keeping up with the field.', level: 'intermediate', topics: ['Community', 'Research', 'Careers'], cost: 'free' },
+      { category: 'community', name: 'Kaggle Discussions', url: 'https://kaggle.com/discussions', desc: 'Competition forums where top Kagglers share notebooks and insights. Reading winning writeups is incredibly educational.', level: 'intermediate', topics: ['ML', 'Competitions'], cost: 'free' },
+      { category: 'community', name: 'Stack Overflow – ML Tag', url: 'https://stackoverflow.com/questions/tagged/machine-learning', desc: 'Go-to for technical questions. Most common ML implementation problems have already been answered here.', level: 'all', topics: ['Q&A', 'Debugging'], cost: 'free' },
+      // PAPERS
+      { category: 'papers', name: 'Attention Is All You Need (2017)', url: 'https://arxiv.org/abs/1706.03762', desc: 'The Transformer paper by Vaswani et al. Changed everything in NLP and beyond. Essential for anyone in modern AI.', level: 'advanced', topics: ['NLP', 'Transformers', 'Attention'], cost: 'free' },
+      { category: 'papers', name: 'BERT: Pre-training Bidirectional Transformers', url: 'https://arxiv.org/abs/1810.04805', desc: "Google's landmark BERT paper. Introduced transfer learning as the standard NLP paradigm.", level: 'advanced', topics: ['NLP', 'BERT', 'Transfer Learning'], cost: 'free' },
+      { category: 'papers', name: 'Deep Residual Learning – ResNet', url: 'https://arxiv.org/abs/1512.03385', desc: "He et al.'s ResNet paper introduced skip connections. One of the most cited ML papers ever.", level: 'intermediate', topics: ['CV', 'ResNet', 'Skip Connections'], cost: 'free' },
+      { category: 'papers', name: 'Language Models are Few-Shot Learners (GPT-3)', url: 'https://arxiv.org/abs/2005.14165', desc: "OpenAI's GPT-3 paper. Showed scale alone produces remarkable emergent capabilities.", level: 'intermediate', topics: ['LLMs', 'GPT', 'Few-Shot'], cost: 'free' },
+      { category: 'papers', name: 'Papers With Code', url: 'https://paperswithcode.com/', desc: 'Every major ML paper with open-source implementations. Benchmarks, leaderboards, trending papers in one place.', level: 'advanced', topics: ['Research', 'Benchmarks', 'SOTA'], cost: 'free' },
+      { category: 'papers', name: 'GPT-4 Technical Report (OpenAI, 2023)', url: 'https://arxiv.org/abs/2303.08774', desc: 'Covers GPT-4 capabilities, limitations, safety evaluation, and multimodal features.', level: 'intermediate', topics: ['LLMs', 'GPT-4', 'Safety'], cost: 'free' },
+    ];
+
+    // ── RENDER ────────────────────────────────────────────────────────
+    const CAT_META = {
+      books: { label: '📚 Books', cls: 'cat-books' },
+      courses: { label: '🎓 Course', cls: 'cat-courses' },
+      tools: { label: '🛠️ Tool', cls: 'cat-tools' },
+      youtube: { label: '▶️ YouTube', cls: 'cat-youtube' },
+      community: { label: '🤝 Community', cls: 'cat-community' },
+      papers: { label: '📄 Paper', cls: 'cat-papers' },
+    };
+    const LVL_META = {
+      beginner: { label: '● Beginner', cls: 'lvl-beginner' },
+      intermediate: { label: '● Intermediate', cls: 'lvl-intermediate' },
+      advanced: { label: '● Advanced', cls: 'lvl-advanced' },
+      all: { label: '● All Levels', cls: 'lvl-all' },
+    };
+
+    let activeFilter = 'all';
+    let searchQuery = '';
+    let sortCol = null;
+    let sortDir = 1; // 1=asc, -1=desc
+
+    function getFiltered() {
+      return RESOURCES.filter(r => {
+        const matchCat = activeFilter === 'all' || r.category === activeFilter;
+        const q = searchQuery.toLowerCase();
+        const matchSearch = !q ||
+          r.name.toLowerCase().includes(q) ||
+          r.desc.toLowerCase().includes(q) ||
+          r.topics.some(t => t.toLowerCase().includes(q)) ||
+          r.category.toLowerCase().includes(q) ||
+          r.level.toLowerCase().includes(q);
+        return matchCat && matchSearch;
+      });
+    }
+
+    function renderTable() {
+      let rows = getFiltered();
+      if (sortCol) {
+        rows = [...rows].sort((a, b) => {
+          const av = sortCol === 'topics' ? a.topics.join(',') : a[sortCol];
+          const bv = sortCol === 'topics' ? b.topics.join(',') : b[sortCol];
+          return av < bv ? -sortDir : av > bv ? sortDir : 0;
+        });
+      }
+
+      const tbody = document.getElementById('res-tbody');
+      const noRes = document.getElementById('no-results');
+      document.getElementById('row-count').textContent = rows.length;
+
+      if (rows.length === 0) {
+        tbody.innerHTML = '';
+        noRes.style.display = 'block';
+        return;
+      }
+      noRes.style.display = 'none';
+
+      tbody.innerHTML = rows.map((r, i) => {
+        const cat = CAT_META[r.category];
+        const lvl = LVL_META[r.level];
+        const chips = r.topics.map(t => `<span class="t-chip">${t}</span>`).join('');
+        const costCls = r.cost === 'free' ? 'cost-free' : 'cost-paid';
+        const costTxt = r.cost === 'free' ? 'Free' : 'Paid';
+        return `
+      <tr data-category="${r.category}">
+        <td class="col-num">${String(i + 1).padStart(2, '0')}</td>
+        <td class="col-cat"><span class="cat-pill ${cat.cls}">${cat.label}</span></td>
+        <td class="col-name"><a href="${r.url}" target="_blank" rel="noopener">${r.name}<span class="ext-arrow">↗</span></a></td>
+        <td class="col-desc"><p>${r.desc}</p></td>
+        <td class="col-level"><span class="level-pill ${lvl.cls}">${lvl.label}</span></td>
+        <td class="col-topics"><div class="topic-chips">${chips}</div></td>
+        <td class="col-cost"><span class="cost-badge ${costCls}">${costTxt}</span></td>
+      </tr>`;
+      }).join('');
+    }
+
+    // ── FILTER BUTTONS ────────────────────────────────────────────────
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        renderTable();
+      });
+    });
+
+    // ── SEARCH ────────────────────────────────────────────────────────
+    document.getElementById('res-search').addEventListener('input', e => {
+      searchQuery = e.target.value;
+      renderTable();
+    });
+
+    // ── SORT ──────────────────────────────────────────────────────────
+    document.querySelectorAll('.res-table thead th[data-col]').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.dataset.col;
+        if (sortCol === col) { sortDir *= -1; }
+        else { sortCol = col; sortDir = 1; }
+        document.querySelectorAll('.res-table thead th').forEach(t => t.classList.remove('sorted'));
+        th.classList.add('sorted');
+        th.querySelector('.sort-arrow').textContent = sortDir === 1 ? '↑' : '↓';
+        renderTable();
+      });
+    });
+
+    // ── INIT ──────────────────────────────────────────────────────────
+    renderTable();
+  </script>
+
+  <script>
+    (function () {
+      'use strict';
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      resize(); window.addEventListener('resize', resize);
+      const mouse = { x: -9999, y: -9999 };
+      document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+      const ripples = [];
+      document.addEventListener('click', e => {
+        ripples.push({ x: e.clientX, y: e.clientY, r: 0, maxR: 160, life: 1 });
+        dots.forEach(d => {
+          const dx = d.x - e.clientX, dy = d.y - e.clientY, dist = Math.hypot(dx, dy);
+          if (dist < 160 && dist > 0) { const f = (1 - dist / 160) * 4.5; d.vx += (dx / dist) * f; d.vy += (dy / dist) * f; d.bright = 1; }
+        });
+      });
+      const REPEL = 115, LINK_D = 155, N = 80;
+      class Dot {
+        constructor() { this.init(true); }
+        init(s) {
+          this.x = s ? Math.random() * canvas.width : (Math.random() < .5 ? -8 : canvas.width + 8);
+          this.y = s ? Math.random() * canvas.height : (Math.random() < .5 ? -8 : canvas.height + 8);
+          const a = Math.random() * Math.PI * 2, sp = 0.12 + Math.random() * 0.45;
+          this.vx = Math.cos(a) * sp; this.vy = Math.sin(a) * sp;
+          this.r0 = 2.2 + Math.random() * 2.6; this.a0 = 0.45 + Math.random() * 0.35;
+          this.isBlue = Math.random() > 0.42; this.bright = 0;
+        }
+        update() {
+          const cdx = this.x - mouse.x, cdy = this.y - mouse.y, cd = Math.hypot(cdx, cdy);
+          if (cd < REPEL && cd > 0) {
+            const f = 1 - cd / REPEL;
+            this.vx += (cdx / cd) * f * 0.22; this.vy += (cdy / cd) * f * 0.22;
+            this.bright = Math.max(this.bright, f * 0.85);
+          }
+          this.x += this.vx; this.y += this.vy;
+          this.vx += (Math.random() - .5) * 0.009; this.vy += (Math.random() - .5) * 0.009;
+          this.vx *= 0.993; this.vy *= 0.993;
+          const spd = Math.hypot(this.vx, this.vy); if (spd > 5) { this.vx *= 5 / spd; this.vy *= 5 / spd; }
+          this.bright = Math.max(0, this.bright - 0.018);
+          if (this.x < -14 || this.x > canvas.width + 14 || this.y < -14 || this.y > canvas.height + 14) this.init(false);
+        }
+        draw() {
+          const alpha = Math.min(1, this.a0 + this.bright * 0.5), r = this.r0 + this.bright * 2.2;
+          if (this.bright > 0.1) {
+            const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r * 3.2);
+            g.addColorStop(0, `rgba(59,130,246,${this.bright * 0.3})`); g.addColorStop(1, 'rgba(59,130,246,0)');
+            ctx.beginPath(); ctx.arc(this.x, this.y, r * 3.2, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+          }
+          ctx.beginPath(); ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = this.isBlue ? `rgba(59,130,246,${alpha})` : `rgba(200,200,200,${alpha * 0.65})`;
+          ctx.fill();
+        }
+      }
+      const dots = Array.from({ length: N }, () => new Dot());
+      function drawLinks() {
+        for (let i = 0; i < dots.length; i++)for (let j = i + 1; j < dots.length; j++) {
+          const dx = dots[i].x - dots[j].x, dy = dots[i].y - dots[j].y, d = Math.hypot(dx, dy);
+          if (d < LINK_D) {
+            const t = 1 - d / LINK_D, boost = Math.max(dots[i].bright, dots[j].bright);
+            ctx.beginPath(); ctx.moveTo(dots[i].x, dots[i].y); ctx.lineTo(dots[j].x, dots[j].y);
+            ctx.strokeStyle = `rgba(59,130,246,${t * (0.28 + boost * 0.55)})`; ctx.lineWidth = 0.9 + boost * 1.3; ctx.stroke();
+          }
+        }
+      }
+      function drawHalo() {
+        if (mouse.x < 0) return;
+        ctx.save(); ctx.beginPath(); ctx.arc(mouse.x, mouse.y, REPEL * 0.62, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(59,130,246,0.18)'; ctx.lineWidth = 1; ctx.setLineDash([4, 7]); ctx.stroke(); ctx.restore();
+      }
+      function drawRipples() {
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          const rp = ripples[i];
+          ctx.beginPath(); ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(59,130,246,${rp.life * (1 - rp.r / rp.maxR) * 0.65})`;
+          ctx.lineWidth = 1.5; ctx.stroke(); rp.r += 3.8; rp.life *= 0.97;
+          if (rp.r >= rp.maxR) ripples.splice(i, 1);
+        }
+      }
+      function tick() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawLinks(); dots.forEach(d => { d.update(); d.draw(); }); drawRipples(); drawHalo();
+        requestAnimationFrame(tick);
+      }
+      tick();
+      if (window.innerWidth <= 640) return;
+      const container = document.getElementById('token-streams'); if (!container) return;
+      const WORDS = ['gradient', 'loss', 'epoch', 'attention', 'embedding', 'softmax', 'ReLU', 'regression', 'dropout', 'decisiontree', 'sigmoid', 'weight', 'tensor', 'mse', 'recall', 'precision', 'entropy', 'encoder', 'decoder', 'pooling', 'variance', 'bias', 'kernel', 'norm', 'dockerHub', 'git', 'mask', 'head', 'knn', 'cosine', 'svm', 'logistic', 'kmeans', 'accuracy', 'randomforest', 'xgboost', 'lightgbm', 'catboost', 'transformer', 'lstm', 'gru', 'bert', 'gpt', 'vgg', 'pca', 'lda', 'dockercompose', 'dockervolume', 'dockerswarm', 'stemming', 'nltk', 'onehot', 'tfidf', 'word2vec', 'cnn', 'rnn', 'perceptron', 'gru', 'agents', 'prompts'];
+      function tokenize(w) {
+        const n = w.length; if (n <= 3) return [w];
+        if (n <= 6) return [w.slice(0, Math.ceil(n / 2)), w.slice(Math.ceil(n / 2))];
+        const a = Math.floor(n / 3), b = Math.floor(n * 2 / 3); return [w.slice(0, a), w.slice(a, b), w.slice(b)];
+      }
+      function feedParticle(cx, cy) {
+        let best = null, bd = Infinity;
+        dots.forEach(d => { const dist = Math.hypot(d.x - cx, d.y - cy); if (dist < bd) { bd = dist; best = d; } });
+        if (best) best.bright = 1;
+      }
+      const lanes = [{ x: 0.13, y: 0.40, wi: 0 }, { x: 0.55, y: 0.68, wi: 12 }, { x: 0.82, y: 0.24, wi: 24 }];
+      function runLane(idx) {
+        const lane = lanes[idx]; const word = WORDS[lane.wi % WORDS.length]; lane.wi++;
+        let el = document.getElementById('tlane-' + idx);
+        if (!el) { el = document.createElement('div'); el.id = 'tlane-' + idx; el.className = 'token-lane'; container.appendChild(el); }
+        el.style.left = (lane.x * 100) + 'vw'; el.style.top = (lane.y * 100) + 'vh';
+        const chunks = tokenize(word); el.innerHTML = '';
+        const wordEl = document.createElement('span'); wordEl.className = 'token-word';
+        const chunkEls = chunks.map(ch => {
+          const s = document.createElement('span'); s.className = 'token-chunk'; s.textContent = ch; wordEl.appendChild(s); return s;
+        });
+        el.appendChild(wordEl);
+        wordEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, fill: 'forwards' });
+        let t = 340;
+        chunkEls.forEach((s, i) => setTimeout(() => s.classList.add('boxed'), t + i * 95));
+        t += chunkEls.length * 95 + 55;
+        chunkEls.forEach((s, i) => setTimeout(() => s.classList.add('filled'), t + i * 65));
+        t += chunkEls.length * 65 + 200;
+        setTimeout(() => {
+          const rect = el.getBoundingClientRect();
+          feedParticle(rect.left + rect.width / 2, rect.top + rect.height / 2);
+          wordEl.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(-22px)' }],
+            { duration: 480, easing: 'ease-in', fill: 'forwards' });
+          lane.x = Math.max(0.06, Math.min(0.94, lane.x + (Math.random() - .5) * 0.15));
+          lane.y = Math.max(0.10, Math.min(0.88, lane.y + (Math.random() - .5) * 0.12));
+          setTimeout(() => runLane(idx), 600);
+        }, t);
+      }
+      setTimeout(() => runLane(0), 500); setTimeout(() => runLane(1), 1900); setTimeout(() => runLane(2), 3200);
+    })();
+  </script>
+</body>
+
+</html>

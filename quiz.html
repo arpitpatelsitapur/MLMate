@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ML & AI MCQ Quiz – Practice Machine Learning, Docker, NLP Questions | MLMate</title>
+  <meta name="description"
+    content="Practice ML, AI, Docker and NLP MCQs with instant explanations. Select a skill, pick a section and start answering. Free, no login required.">
+  <meta name="keywords"
+    content="machine learning quiz, AI MCQ, docker quiz, NLP quiz, ML interview questions, practice ML questions online">
+  <link rel="canonical" href="https://mlmate.in/quiz.html" />
+
+  <meta property="og:title" content="MLMate Quiz – Practice AI & ML MCQs">
+  <meta property="og:description"
+    content="Pick a skill and start answering MCQs with instant explanations. Free forever.">
+  <meta property="og:url" content="https://mlmate.in/quiz.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://mlmate.in/preview.png">
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div id="token-streams" aria-hidden="true"></div>
+  <div id="page">
+
+    <!-- NAV -->
+    <nav>
+      <a class="logo" href="index.html">MLMate</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#skills-section">Skills</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="https://github.com/arpitpatelsitapur/MLMate" target="_blank">GitHub</a></li>
+      </ul>
+      <a href="https://github.com/arpitpatelsitapur/MLMate" target="_blank" class="nav-btn">Contribute on GitHub</a>
+    </nav>
+
+    <!-- SKILL PICKER (shown when no skill selected) -->
+    <div id="view-picker">
+      <div class="hero" style="padding-bottom:0.5rem;">
+        <div class="hero-badge">Free Practice Platform</div>
+        <h1 style="font-size:clamp(1.8rem,5vw,2.8rem);">Pick a Skill to Start Practicing</h1>
+        <p style="margin-bottom:0.5rem;">Choose a topic below — then select a section to begin your quiz.</p>
+      </div>
+      <section class="section" style="padding-top:1rem;">
+        <div class="skills-grid" id="picker-skills-grid"></div>
+      </section>
+    </div>
+
+    <!-- QUIZ VIEW (shown when skill selected) -->
+    <div id="view-quiz" style="display:none;">
+
+      <!-- Top header bar -->
+      <div class="skill-page-header" id="skill-header">
+        <button class="back-btn" onclick="backToPicker()">← Back to Skills</button>
+        <h2 id="skill-title">Machine Learning</h2>
+        <p id="skill-desc">Select a section on the left to start the quiz</p>
+      </div>
+
+      <!-- Two-column layout -->
+      <div class="skill-body">
+
+        <!-- SIDEBAR -->
+        <aside class="skill-sidebar" id="skill-sidebar">
+          <div class="sidebar-skill-info">
+            <div class="ssi-name" id="sidebar-skill-name">Machine Learning</div>
+            <div class="ssi-meta" id="sidebar-skill-meta">0 sections · 0 questions</div>
+          </div>
+          <div class="sidebar-heading">Sections</div>
+          <button class="sidebar-toggle" onclick="toggleSidebar()">
+            ☰ <span id="sidebar-toggle-label">Show Sections</span>
+          </button>
+          <div class="sidebar-sections-list" id="sidebar-sections-list"></div>
+        </aside>
+
+        <!-- QUIZ AREA -->
+        <main class="skill-main">
+          <div class="quiz-wrap" id="quiz-area">
+            <div class="quiz-empty-state">
+              <p>Pick a section from the sidebar to begin</p>
+              <small>Each section is independent — choose any topic</small>
+            </div>
+          </div>
+        </main>
+
+      </div>
+    </div>
+    <footer>
+        <p>© 2026 MLMate · Made with ❤️ by <a href="https://github.com/arpitpatelsitapur" target="_blank">Arpit Patel</a>
+        </p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="resources.html">Resources</a>
+          <a href="https://github.com/arpitpatelsitapur/MLMate" target="_blank">GitHub</a>
+        </div>
+      </footer>
+  </div>
+
+  <!-- DATA -->
+  <script src="questions.js"></script>
+
+  <script>
+    let currentSkill = null;
+    let currentSection = null;
+    let currentQ = 0;
+    let answered = false;
+    let score = 0;
+    let sidebarCollapsed = false;
+
+    // ── Skill picker grid ──────────────────────────────────────
+    function renderPickerGrid() {
+      const grid = document.getElementById('picker-skills-grid');
+      grid.innerHTML = SKILLS.map(skill => `
+        <div class="skill-card ${skill.active ? '' : 'inactive'}"
+             onclick="${skill.active ? `openSkill('${skill.id}')` : ''}">
+          ${!skill.active ? '<span class="coming-soon-tag">Coming Soon</span>' : ''}
+          <div class="skill-card-header">${skill.icon} ${skill.name}</div>
+          <div class="skill-card-body">
+            <p>${skill.desc}</p>
+            <div class="skill-meta">
+              ${skill.active
+          ? `<span class="badge">${skill.sections.reduce((a, s) => a + s.questions.length, 0)} Questions</span>
+                   <span class="badge">${skill.sections.length} Sections</span>`
+          : `<span class="badge gray">Locked</span>`}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ── Back to picker ────────────────────────────────────────
+    function backToPicker() {
+      document.getElementById('view-quiz').style.display = 'none';
+      document.getElementById('view-picker').style.display = 'block';
+      window.history.pushState({}, '', 'quiz.html');
+      window.scrollTo(0, 0);
+    }
+
+    // ── Open skill ────────────────────────────────────────────
+    function openSkill(skillId) {
+      currentSkill = SKILLS.find(s => s.id === skillId);
+      currentSection = null;
+      currentQ = 0;
+      score = 0;
+
+      document.getElementById('skill-title').textContent = currentSkill.icon + ' ' + currentSkill.name;
+      document.getElementById('skill-desc').textContent = currentSkill.desc;
+
+      const totalQ = currentSkill.sections.reduce((a, s) => a + s.questions.length, 0);
+      document.getElementById('sidebar-skill-name').textContent = currentSkill.icon + ' ' + currentSkill.name;
+      document.getElementById('sidebar-skill-meta').textContent =
+        `${currentSkill.sections.length} section${currentSkill.sections.length !== 1 ? 's' : ''} · ${totalQ} questions`;
+
+      renderSidebarSections();
+
+      document.getElementById('quiz-area').innerHTML = `
+        <div class="quiz-empty-state">
+          <p>Pick a section from the sidebar to begin</p>
+          <small>Each section is independent — choose any topic</small>
+        </div>`;
+
+      document.getElementById('view-picker').style.display = 'none';
+      document.getElementById('view-quiz').style.display = 'block';
+      window.history.pushState({}, '', `quiz.html?skill=${skillId}`);
+      window.scrollTo(0, 0);
+    }
+
+    // ── Sidebar ───────────────────────────────────────────────
+    function renderSidebarSections(activeSectionId) {
+      const list = document.getElementById('sidebar-sections-list');
+      list.innerHTML = currentSkill.sections.map(sec => `
+        <button class="sidebar-section-btn ${sec.id === activeSectionId ? 'active' : ''}"
+                id="sidebar-tab-${sec.id}"
+                onclick="openSection('${sec.id}')">
+          <span class="sec-info">
+            <span class="sec-name">${sec.name}</span>
+            <span class="sec-q-count">${sec.questions.length} Q</span>
+          </span>
+        </button>
+      `).join('');
+    }
+
+    function toggleSidebar() {
+      sidebarCollapsed = !sidebarCollapsed;
+      document.getElementById('skill-sidebar').classList.toggle('collapsed', sidebarCollapsed);
+      document.getElementById('sidebar-toggle-label').textContent = sidebarCollapsed ? 'Show Sections' : 'Hide Sections';
+    }
+
+    // ── Open section ──────────────────────────────────────────
+    function openSection(sectionId) {
+      currentSection = currentSkill.sections.find(s => s.id === sectionId);
+      currentQ = 0;
+      score = 0;
+      answered = false;
+      renderSidebarSections(sectionId);
+      if (window.innerWidth <= 768) {
+        sidebarCollapsed = true;
+        document.getElementById('skill-sidebar').classList.add('collapsed');
+        document.getElementById('sidebar-toggle-label').textContent = 'Show Sections';
+      }
+      renderQuestion();
+    }
+
+    // ── Quiz rendering ────────────────────────────────────────
+    function renderQuestion() {
+      const area = document.getElementById('quiz-area');
+      if (currentQ >= currentSection.questions.length) { renderResults(); return; }
+
+      const q = currentSection.questions[currentQ];
+      const letters = ['A', 'B', 'C', 'D'];
+      const pct = Math.round((currentQ / currentSection.questions.length) * 100);
+
+      area.innerHTML = `
+        <div class="quiz-progress">
+          <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+          <span class="progress-text">Q${currentQ + 1} / ${currentSection.questions.length}</span>
+        </div>
+        <div class="q-card">
+          <div class="q-num">Question ${currentQ + 1}</div>
+          <div class="q-text">${q.q}</div>
+          <div class="q-options">
+            ${q.options.map((opt, i) => `
+              <button class="opt-btn" id="opt-${i}" onclick="selectOption(${i})">
+                <span class="opt-letter">${letters[i]}</span>${opt}
+              </button>`).join('')}
+          </div>
+          <div class="explanation-box" id="explanation"><b>Explanation:</b> ${q.explanation}</div>
+          <button class="next-btn" id="next-btn" onclick="nextQuestion()">
+            ${currentQ + 1 === currentSection.questions.length ? 'See Results →' : 'Next Question →'}
+          </button>
+        </div>`;
+      answered = false;
+    }
+
+    function selectOption(idx) {
+      if (answered) return;
+      answered = true;
+      const q = currentSection.questions[currentQ];
+      document.querySelectorAll('.opt-btn').forEach((btn, i) => {
+        btn.classList.add('answered');
+        if (i === q.answer) btn.classList.add('correct');
+        else if (i === idx && idx !== q.answer) btn.classList.add('wrong');
+        else btn.classList.add('neutral-after');
+      });
+      if (idx === q.answer) score++;
+      document.getElementById('explanation').classList.add('show');
+      document.getElementById('next-btn').classList.add('show');
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      answered = false;
+      renderQuestion();
+    }
+
+    // ── Results ───────────────────────────────────────────────
+    function renderResults() {
+      const total = currentSection.questions.length;
+      const pct = Math.round((score / total) * 100);
+      const msg = pct >= 80 ? "🔥 Excellent work!" : pct >= 60 ? "👍 Good job!" : "📚 Keep practicing!";
+      document.getElementById('quiz-area').innerHTML = `
+        <div class="results-card">
+          <div class="score-circle">
+            <span class="score-num">${score}/${total}</span>
+            <span class="score-label">SCORE</span>
+          </div>
+          <h3>${msg}</h3>
+          <p>You scored ${pct}% in <strong>${currentSection.name}</strong></p>
+          <div class="results-actions">
+            <button class="btn-outline" onclick="openSection('${currentSection.id}')">🔄 Retry Section</button>
+            <button class="btn-primary" onclick="backToPicker()">🏠 Back to Skills</button>
+          </div>
+        </div>`;
+    }
+
+    // ── Init ──────────────────────────────────────────────────
+    renderPickerGrid();
+
+    // Check if URL has ?skill= param
+    const urlParams = new URLSearchParams(window.location.search);
+    const skillParam = urlParams.get('skill');
+    if (skillParam) {
+      const found = SKILLS.find(s => s.id === skillParam && s.active);
+      if (found) openSkill(skillParam);
+    }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "MLMate AI & ML Quiz",
+    "description": "Free MCQ quiz platform covering Machine Learning, Docker, NLP, Deep Learning with explanations",
+    "url": "https://mlmate.in/quiz.html",
+    "educationalLevel": "Intermediate",
+    "about": [
+      { "@type": "Thing", "name": "Machine Learning" },
+      { "@type": "Thing", "name": "Docker" },
+      { "@type": "Thing", "name": "Natural Language Processing" }
+    ]
+  }
+  </script>
+
+  <script>(function () {
+      'use strict';
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      resize(); window.addEventListener('resize', resize);
+      const mouse = { x: -9999, y: -9999 };
+      document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+      const ripples = [];
+      document.addEventListener('click', e => {
+        ripples.push({ x: e.clientX, y: e.clientY, r: 0, maxR: 160, life: 1 });
+        dots.forEach(d => {
+          const dx = d.x - e.clientX, dy = d.y - e.clientY, dist = Math.hypot(dx, dy);
+          if (dist < 160 && dist > 0) { const f = (1 - dist / 160) * 4.5; d.vx += (dx / dist) * f; d.vy += (dy / dist) * f; d.bright = 1; }
+        });
+      });
+      const REPEL = 115, LINK_D = 155, N = 80;
+      class Dot {
+        constructor() { this.init(true); }
+        init(s) {
+          this.x = s ? Math.random() * canvas.width : (Math.random() < .5 ? -8 : canvas.width + 8);
+          this.y = s ? Math.random() * canvas.height : (Math.random() < .5 ? -8 : canvas.height + 8);
+          const a = Math.random() * Math.PI * 2, sp = 0.12 + Math.random() * 0.45;
+          this.vx = Math.cos(a) * sp; this.vy = Math.sin(a) * sp;
+          this.r0 = 2.2 + Math.random() * 2.6; this.a0 = 0.45 + Math.random() * 0.35;
+          this.isBlue = Math.random() > 0.42; this.bright = 0;
+        }
+        update() {
+          const cdx = this.x - mouse.x, cdy = this.y - mouse.y, cd = Math.hypot(cdx, cdy);
+          if (cd < REPEL && cd > 0) {
+            const f = 1 - cd / REPEL;
+            this.vx += (cdx / cd) * f * 0.22; this.vy += (cdy / cd) * f * 0.22;
+            this.bright = Math.max(this.bright, f * 0.85);
+          }
+          this.x += this.vx; this.y += this.vy;
+          this.vx += (Math.random() - .5) * 0.009; this.vy += (Math.random() - .5) * 0.009;
+          this.vx *= 0.993; this.vy *= 0.993;
+          const spd = Math.hypot(this.vx, this.vy); if (spd > 5) { this.vx *= 5 / spd; this.vy *= 5 / spd; }
+          this.bright = Math.max(0, this.bright - 0.018);
+          if (this.x < -14 || this.x > canvas.width + 14 || this.y < -14 || this.y > canvas.height + 14) this.init(false);
+        }
+        draw() {
+          const alpha = Math.min(1, this.a0 + this.bright * 0.5), r = this.r0 + this.bright * 2.2;
+          if (this.bright > 0.1) {
+            const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r * 3.2);
+            g.addColorStop(0, `rgba(59,130,246,${this.bright * 0.3})`); g.addColorStop(1, 'rgba(59,130,246,0)');
+            ctx.beginPath(); ctx.arc(this.x, this.y, r * 3.2, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+          }
+          ctx.beginPath(); ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = this.isBlue ? `rgba(59,130,246,${alpha})` : `rgba(200,200,200,${alpha * 0.65})`;
+          ctx.fill();
+        }
+      }
+      const dots = Array.from({ length: N }, () => new Dot());
+      function drawLinks() {
+        for (let i = 0; i < dots.length; i++)for (let j = i + 1; j < dots.length; j++) {
+          const dx = dots[i].x - dots[j].x, dy = dots[i].y - dots[j].y, d = Math.hypot(dx, dy);
+          if (d < LINK_D) {
+            const t = 1 - d / LINK_D, boost = Math.max(dots[i].bright, dots[j].bright);
+            ctx.beginPath(); ctx.moveTo(dots[i].x, dots[i].y); ctx.lineTo(dots[j].x, dots[j].y);
+            ctx.strokeStyle = `rgba(59,130,246,${t * (0.28 + boost * 0.55)})`; ctx.lineWidth = 0.9 + boost * 1.3; ctx.stroke();
+          }
+        }
+      }
+      function drawHalo() {
+        if (mouse.x < 0) return;
+        ctx.save(); ctx.beginPath(); ctx.arc(mouse.x, mouse.y, REPEL * 0.62, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(59,130,246,0.18)'; ctx.lineWidth = 1; ctx.setLineDash([4, 7]); ctx.stroke(); ctx.restore();
+      }
+      function drawRipples() {
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          const rp = ripples[i];
+          ctx.beginPath(); ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(59,130,246,${rp.life * (1 - rp.r / rp.maxR) * 0.65})`;
+          ctx.lineWidth = 1.5; ctx.stroke(); rp.r += 3.8; rp.life *= 0.97;
+          if (rp.r >= rp.maxR) ripples.splice(i, 1);
+        }
+      }
+      function tick() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawLinks(); dots.forEach(d => { d.update(); d.draw(); }); drawRipples(); drawHalo();
+        requestAnimationFrame(tick);
+      }
+      tick();
+      if (window.innerWidth <= 640) return;
+      const container = document.getElementById('token-streams'); if (!container) return;
+      const WORDS = ['gradient', 'loss', 'epoch', 'attention', 'embedding', 'softmax', 'ReLU', 'regression', 'dropout', 'decisiontree', 'sigmoid', 'weight', 'tensor', 'mse', 'recall', 'precision', 'entropy', 'encoder', 'decoder', 'pooling', 'variance', 'bias', 'kernel', 'norm', 'dockerHub', 'git', 'mask', 'head', 'knn', 'cosine', 'svm', 'logistic', 'kmeans', 'accuracy', 'randomforest', 'xgboost', 'lightgbm', 'catboost', 'transformer', 'lstm', 'gru', 'bert', 'gpt', 'vgg', 'pca', 'lda', 'dockercompose', 'dockervolume', 'dockerswarm', 'stemming', 'nltk', 'onehot', 'tfidf', 'word2vec', 'cnn', 'rnn', 'perceptron', 'gru', 'agents', 'prompts'];
+      function tokenize(w) {
+        const n = w.length; if (n <= 3) return [w];
+        if (n <= 6) return [w.slice(0, Math.ceil(n / 2)), w.slice(Math.ceil(n / 2))];
+        const a = Math.floor(n / 3), b = Math.floor(n * 2 / 3); return [w.slice(0, a), w.slice(a, b), w.slice(b)];
+      }
+      function feedParticle(cx, cy) {
+        let best = null, bd = Infinity;
+        dots.forEach(d => { const dist = Math.hypot(d.x - cx, d.y - cy); if (dist < bd) { bd = dist; best = d; } });
+        if (best) best.bright = 1;
+      }
+      const lanes = [{ x: 0.13, y: 0.40, wi: 0 }, { x: 0.55, y: 0.68, wi: 12 }, { x: 0.82, y: 0.24, wi: 24 }];
+      function runLane(idx) {
+        const lane = lanes[idx]; const word = WORDS[lane.wi % WORDS.length]; lane.wi++;
+        let el = document.getElementById('tlane-' + idx);
+        if (!el) { el = document.createElement('div'); el.id = 'tlane-' + idx; el.className = 'token-lane'; container.appendChild(el); }
+        el.style.left = (lane.x * 100) + 'vw'; el.style.top = (lane.y * 100) + 'vh';
+        const chunks = tokenize(word); el.innerHTML = '';
+        const wordEl = document.createElement('span'); wordEl.className = 'token-word';
+        const chunkEls = chunks.map(ch => {
+          const s = document.createElement('span'); s.className = 'token-chunk'; s.textContent = ch; wordEl.appendChild(s); return s;
+        });
+        el.appendChild(wordEl);
+        wordEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, fill: 'forwards' });
+        let t = 340;
+        chunkEls.forEach((s, i) => setTimeout(() => s.classList.add('boxed'), t + i * 95));
+        t += chunkEls.length * 95 + 55;
+        chunkEls.forEach((s, i) => setTimeout(() => s.classList.add('filled'), t + i * 65));
+        t += chunkEls.length * 65 + 200;
+        setTimeout(() => {
+          const rect = el.getBoundingClientRect();
+          feedParticle(rect.left + rect.width / 2, rect.top + rect.height / 2);
+          wordEl.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(-22px)' }],
+            { duration: 480, easing: 'ease-in', fill: 'forwards' });
+          lane.x = Math.max(0.06, Math.min(0.94, lane.x + (Math.random() - .5) * 0.15));
+          lane.y = Math.max(0.10, Math.min(0.88, lane.y + (Math.random() - .5) * 0.12));
+          setTimeout(() => runLane(idx), 600);
+        }, t);
+      }
+      setTimeout(() => runLane(0), 500); setTimeout(() => runLane(1), 1900); setTimeout(() => runLane(2), 3200);
+    })();</script>
+
+</body>
+
+</html>
