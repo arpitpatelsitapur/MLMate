@@ -24,43 +24,6 @@
       margin: 0 auto;
     }
 
-    .res-hero h1 {
-      font-size: clamp(1.9rem, 5vw, 3rem);
-      font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 0.8rem;
-      color: #fff;
-    }
-
-    .res-hero p {
-      font-size: 1rem;
-      color: var(--muted);
-      font-weight: 600;
-      line-height: 1.7;
-    }
-
-    /* Filter bar */
-    .filter-bar {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 0 0 1.5rem;
-    }
-
-    .filter-btn {
-      background: #1a1a1a;
-      border: 1px solid #2e2e2e;
-      border-radius: 8px;
-      padding: 0.42rem 1.1rem;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 800;
-      font-size: 0.82rem;
-      cursor: pointer;
-      color: #666;
-      transition: all 0.15s;
-    }
-
     .filter-btn:hover {
       background: #222;
       color: #ccc;
@@ -73,23 +36,6 @@
       border-color: var(--blue);
     }
 
-    /* Disclaimer */
-    .disclaimer {
-      background: #111;
-      border: 1px solid #252525;
-      border-left: 3px solid var(--blue);
-      border-radius: 10px;
-      padding: 0.85rem 1.2rem;
-      margin-bottom: 1.5rem;
-      font-size: 0.81rem;
-      color: #b2b2b2;
-      font-weight: 600;
-    }
-
-    .disclaimer strong {
-      color: #aaa;
-    }
-
     /* Search bar */
     .search-wrap {
       position: relative;
@@ -98,7 +44,7 @@
 
     .search-wrap input {
       width: 100%;
-      background: #111;
+      background: #ffffff;
       border: 1px solid #2a2a2a;
       border-radius: 10px;
       padding: 0.65rem 1rem 0.65rem 2.6rem;
@@ -144,24 +90,24 @@
       flex-wrap: wrap;
       gap: 0.5rem;
       padding: 0.75rem 1.2rem;
-      background: #111;
+      background: #00a1ff;
       border-bottom: 1px solid #1e1e1e;
     }
 
     .table-stats-left {
       font-size: 0.78rem;
       font-weight: 800;
-      color: #9f9f9f;
+      color: #ffffff;
     }
 
     .table-stats-left span {
-      color: var(--blue);
+      color: #072244;
     }
 
     .table-stats-right {
       font-size: 0.72rem;
       font-weight: 700;
-      color: #929292;
+      color: #fbf2f2;
       font-family: 'Space Mono', monospace;
     }
 
@@ -185,15 +131,16 @@
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: #3b82f6;
+      color: #0062ff;
       white-space: nowrap;
       cursor: pointer;
       user-select: none;
       transition: color 0.13s;
+      background:#fff;
     }
 
     .res-table thead th:hover {
-      color: #93c5fd;
+      color: #0077ff;
     }
 
     .res-table thead th .sort-arrow {
@@ -209,17 +156,17 @@
 
     /* Body */
     .res-table tbody tr {
-      background: #0f0f0f;
+      background: #ffffff;
       border-bottom: 1px solid #191919;
       transition: background 0.12s;
     }
 
     .res-table tbody tr:nth-child(even) {
-      background: #111;
+      background: #d8d8d8;
     }
 
     .res-table tbody tr:hover {
-      background: #161616;
+      background: #c1e3f7;
     }
 
     .res-table tbody tr:last-child {
@@ -240,7 +187,6 @@
     .res-table td {
       padding: 0.85rem 1.1rem;
       vertical-align: middle;
-      color: #d0d0d0;
     }
 
     /* # col */
@@ -249,7 +195,7 @@
       text-align: center;
       font-family: 'Space Mono', monospace;
       font-size: 0.68rem;
-      color: #a0a0a0;
+      color: #0a0a0a;
       font-weight: 700;
     }
 
@@ -270,37 +216,37 @@
     }
 
     .cat-books {
-      background: rgba(168, 85, 247, 0.12);
+      background: rgb(255, 255, 255);
       color: #c084fc;
       border: 1px solid rgba(168, 85, 247, 0.2);
     }
 
     .cat-courses {
-      background: rgba(59, 130, 246, 0.12);
+      background: rgb(255, 255, 255);
       color: #60a5fa;
       border: 1px solid rgba(59, 130, 246, 0.2);
     }
 
     .cat-tools {
-      background: rgba(34, 197, 94, 0.12);
+      background: rgb(255, 255, 255);
       color: #4ade80;
       border: 1px solid rgba(34, 197, 94, 0.2);
     }
 
     .cat-youtube {
-      background: rgba(239, 68, 68, 0.12);
+      background: rgb(255, 255, 255);
       color: #f87171;
       border: 1px solid rgba(239, 68, 68, 0.2);
     }
 
     .cat-community {
-      background: rgba(245, 158, 11, 0.12);
+      background: rgb(255, 255, 255);
       color: #fbbf24;
       border: 1px solid rgba(245, 158, 11, 0.2);
     }
 
     .cat-papers {
-      background: rgba(20, 184, 166, 0.12);
+      background: rgb(255, 255, 255);
       color: #2dd4bf;
       border: 1px solid rgba(20, 184, 166, 0.2);
     }
@@ -314,7 +260,7 @@
     .col-name a {
       font-weight: 800;
       font-size: 0.87rem;
-      color: #e8e8e8;
+      color: #000000;
       text-decoration: none;
       transition: color 0.13s;
       line-height: 1.35;
@@ -338,7 +284,7 @@
 
     .col-desc p {
       font-size: 0.8rem;
-      color: #cecdcd;
+      color: #212121;
       font-weight: 600;
       line-height: 1.5;
       margin: 0;
@@ -362,25 +308,25 @@
     }
 
     .lvl-beginner {
-      background: rgba(34, 197, 94, 0.1);
+      background: rgb(255, 255, 255);
       color: #4ade80;
       border: 1px solid rgba(34, 197, 94, 0.2);
     }
 
     .lvl-intermediate {
-      background: rgba(245, 158, 11, 0.1);
+      background: rgb(255, 255, 255);
       color: #fbbf24;
       border: 1px solid rgba(245, 158, 11, 0.2);
     }
 
     .lvl-advanced {
-      background: rgba(239, 68, 68, 0.1);
+      background: rgb(255, 255, 255);
       color: #f87171;
       border: 1px solid rgba(239, 68, 68, 0.2);
     }
 
     .lvl-all {
-      background: rgba(59, 130, 246, 0.1);
+      background: rgb(255, 255, 255);
       color: #60a5fa;
       border: 1px solid rgba(59, 130, 246, 0.2);
     }
@@ -400,10 +346,10 @@
       font-size: 0.66rem;
       font-weight: 800;
       padding: 2px 7px;
-      background: #161616;
+      background: #ffffff;
       border: 1px solid #2a2a2a;
       border-radius: 5px;
-      color: #c6c6c6;
+      color: #0075a8;
       white-space: nowrap;
     }
 
@@ -423,13 +369,13 @@
     }
 
     .cost-free {
-      background: rgba(34, 197, 94, 0.1);
-      color: #4ade80;
+      background: rgb(255, 255, 255);
+      color: #22b558;
       border: 1px solid rgba(34, 197, 94, 0.2);
     }
 
     .cost-paid {
-      background: rgba(245, 158, 11, 0.1);
+      background: rgb(255, 255, 255);
       color: #fbbf24;
       border: 1px solid rgba(245, 158, 11, 0.2);
     }
@@ -454,7 +400,7 @@
 
     .cta-banner p {
       font-size: 0.9rem;
-      color: #555;
+      color: #f3f3f3;
       font-weight: 600;
       margin-bottom: 1.2rem;
     }
@@ -563,7 +509,7 @@
     </div>
 
     <footer>
-      <p>© 2026 MLMate · Made with ❤️ by <a href="https://github.com/arpitpatelsitapur" target="_blank">Arpit Patel</a>
+      <p>© 2026 MLMate · Made by <a href="https://github.com/arpitpatelsitapur" target="_blank">Arpit Patel</a>
       </p>
       <div style="display:flex;gap:1rem;flex-wrap:wrap;">
         <a href="index.html">Home</a><a href="quiz.html">Quiz</a><a href="about.html">About</a>

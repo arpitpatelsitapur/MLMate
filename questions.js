@@ -460,9 +460,465 @@ const SKILLS = [
       }
     ]
   },
-  { id: "dl", name: "Deep Learning", icon: "🧬", active: false, desc: "Neural networks, CNNs, RNNs, transformers & training tricks", sections: [] },
-  { id: "llm", name: "LLMs & Transformers", icon: "💬", active: false, desc: "Attention, fine-tuning, RAG, prompt engineering", sections: [] },
-  { id: "nlp", name: "NLP", icon: "📝", active: false, desc: "Tokenization, embeddings, text classification, NER", sections: [] },
+  {
+    id: "dl",
+    name: "Deep Learning",
+    icon: "🧬",
+    active: true,
+    desc: "Neural networks, CNNs, RNNs, transformers & training tricks",
+    sections: [
+      {
+        id: "dl_fundamentals",
+        name: "Neural Network Fundamentals",
+        questions: [
+          {
+            q: "Why is the ReLU activation function generally preferred over Sigmoid in the hidden layers of deep neural networks?",
+            options: ["It bounds the output between 0 and 1.", "It prevents the vanishing gradient problem for positive values.", "It is infinitely differentiable.", "It forces the network to learn non-linear patterns faster by outputting negative numbers."],
+            answer: 1,
+            explanation: "ReLU (Rectified Linear Unit) returns x if x > 0, and 0 otherwise. Because its derivative is 1 for positive values, it doesn't squash gradients down to zero, helping mitigate the vanishing gradient problem."
+          },
+          {
+            q: "What is the primary mathematical algorithm used during backpropagation to compute gradients?",
+            options: ["The Chain Rule of Calculus", "Principal Component Analysis (PCA)", "The Pythagorean Theorem", "K-Means Clustering"],
+            answer: 0,
+            explanation: "Backpropagation uses the chain rule to recursively calculate the gradient of the loss function with respect to each weight in the network."
+          },
+          {
+            q: "In a multi-class classification problem, which activation function is typically used in the final output layer?",
+            options: ["Tanh", "ReLU", "Softmax", "Leaky ReLU"],
+            answer: 2,
+            explanation: "Softmax normalizes the output of a network into a probability distribution consisting of K probabilities proportional to the exponentials of the input numbers."
+          },
+          {
+            q: "What is the difference between an 'epoch' and a 'batch' in deep learning training?",
+            options: ["A batch is the entire dataset; an epoch is a single sample.", "An epoch is one complete pass through the entire training dataset; a batch is a subset of the dataset processed before updating weights.", "They are the exact same thing.", "An epoch measures time, while a batch measures memory size."],
+            answer: 1,
+            explanation: "An epoch means the model has seen all training data once. A batch is the number of samples processed together to compute a single gradient update."
+          },
+          {
+            q: "Which loss function is the standard choice for binary classification tasks?",
+            options: ["Mean Squared Error (MSE)", "Categorical Cross-Entropy", "Binary Cross-Entropy (Log Loss)", "Huber Loss"],
+            answer: 2,
+            explanation: "Binary Cross-Entropy compares each of the predicted probabilities to actual class output (0 or 1), heavily penalizing predictions that are confident but wrong."
+          }
+        ]
+      },
+      {
+        id: "cnn",
+        name: "Convolutional Neural Networks (CNNs)",
+        questions: [
+          {
+            q: "What is the primary purpose of a Pooling layer (like Max Pooling) in a CNN?",
+            options: ["To increase the number of features.", "To reduce the spatial dimensions of the input, making the model more translation invariant and computationally efficient.", "To add non-linearity to the network.", "To prevent overfitting by randomly dropping neurons."],
+            answer: 1,
+            explanation: "Pooling layers downsample feature maps, reducing the number of parameters and helping the network recognize features regardless of their exact location."
+          },
+          {
+            q: "What does the 'stride' parameter control in a convolutional layer?",
+            options: ["The size of the filter matrix.", "The number of filters applied to the input.", "The step size the filter takes as it moves across the input image.", "The amount of padding added to the borders of the image."],
+            answer: 2,
+            explanation: "Stride determines how many pixels the kernel shifts at each step. A larger stride results in a smaller output feature map."
+          },
+          {
+            q: "If you set padding='same' in a convolutional layer with a stride of 1, what happens to the output dimensions?",
+            options: ["The output dimensions are exactly half the input dimensions.", "The output dimensions match the input dimensions.", "The output dimensions are reduced by the filter size minus one.", "The output dimensions are doubled."],
+            answer: 1,
+            explanation: "'Same' padding automatically adds zero-padding to the edges of the input so that the spatial dimensions of the output feature map match the input."
+          },
+          {
+            q: "What is a 1x1 convolution primarily used for in architectures like Inception or ResNet?",
+            options: ["To detect large shapes like circles and squares.", "To drastically increase the spatial resolution of the image.", "To perform dimensionality reduction along the channel depth.", "To replace fully connected layers entirely."],
+            answer: 2,
+            explanation: "A 1x1 convolution acts as a pixel-wise fully connected layer across channels, allowing for the reduction (or increase) of the number of feature maps/channels without altering spatial dimensions."
+          },
+          {
+            q: "What does the term 'Receptive Field' refer to in the context of CNNs?",
+            options: ["The area of the original input image that influences a specific neuron's activation.", "The size of the final fully connected layer.", "The range of values output by the activation function.", "The number of bounding boxes a YOLO model predicts."],
+            answer: 0,
+            explanation: "As you go deeper into a CNN, each neuron in a feature map is affected by a larger and larger patch of the original input image; this patch is its receptive field."
+          }
+        ]
+      },
+      {
+        id: "rnn",
+        name: "RNNs & Sequence Models",
+        questions: [
+          {
+            q: "Which technique is most commonly used to solve the 'Exploding Gradient' problem in deep Recurrent Neural Networks (RNNs)?",
+            options: ["Increasing the learning rate", "Gradient Clipping", "Removing the bias terms", "Using the Sigmoid activation function everywhere"],
+            answer: 1,
+            explanation: "Gradient clipping forces the gradient vector to a maximum threshold if it exceeds a certain limit, preventing the weights from receiving massive, destabilizing updates."
+          },
+          {
+            q: "In a Long Short-Term Memory (LSTM) network, what is the role of the 'Forget Gate'?",
+            options: ["To decide what new information to add to the cell state.", "To output the final prediction for the current time step.", "To decide what information should be thrown away or kept from the previous cell state.", "To randomly drop out neurons to prevent overfitting."],
+            answer: 2,
+            explanation: "The forget gate looks at the previous hidden state and current input, and outputs a number between 0 and 1 for each number in the cell state, where 0 means 'completely forget' and 1 means 'completely keep'."
+          },
+          {
+            q: "How does a Gated Recurrent Unit (GRU) differ structurally from an LSTM?",
+            options: ["GRUs have no memory gates at all.", "GRUs merge the cell state and hidden state, and have only two gates (reset and update).", "GRUs require twice as many parameters as LSTMs.", "GRUs can only process data bidirectionally."],
+            answer: 1,
+            explanation: "GRUs are a simplified version of LSTMs. They combine the forget and input gates into a single 'update gate' and merge the cell state with the hidden state."
+          },
+          {
+            q: "In training sequence-to-sequence models, what is 'Teacher Forcing'?",
+            options: ["Having a larger 'teacher' model train a smaller 'student' model.", "Using the actual ground truth sequence from the training dataset as input for the next time step, instead of the model's own previous prediction.", "Manually updating the weights based on expert intuition.", "Forcing the model to output a specific token at the beginning of generation."],
+            answer: 1,
+            explanation: "Teacher forcing stabilizes and speeds up training by feeding the true previous target token to the decoder, preventing early mistakes from compounding throughout the sequence."
+          },
+          {
+            q: "Why do standard RNNs struggle with long sequences?",
+            options: ["They consume too much disk space.", "They suffer from the vanishing gradient problem, making it hard to carry information across many time steps.", "They process data in parallel, which breaks temporal logic.", "They cannot use embedding layers."],
+            answer: 1,
+            explanation: "During backpropagation through time (BPTT), gradients are continuously multiplied by the weight matrix. If weights are small, gradients vanish, and the network 'forgets' long-term dependencies."
+          }
+        ]
+      },
+      {
+        id: "dl_optimization",
+        name: "Optimization & Regularization",
+        questions: [
+          {
+            q: "How does Dropout act as a regularizer during neural network training?",
+            options: ["It forces the weights to be exactly zero by applying a penalty.", "It randomly ignores a subset of neurons during each forward/backward pass, preventing complex co-adaptations.", "It standardizes the input features.", "It stops training early if the validation loss increases."],
+            answer: 1,
+            explanation: "By randomly dropping neurons, the network cannot rely on any single node, forcing it to learn more robust features that generalize better."
+          },
+          {
+            q: "What makes the Adam optimizer different from standard Stochastic Gradient Descent (SGD)?",
+            options: ["Adam uses a static learning rate for all parameters.", "Adam calculates the second derivative (Hessian) of the loss.", "Adam computes adaptive learning rates for each parameter based on estimates of first and second moments of the gradients.", "Adam can only be used for CNNs."],
+            answer: 2,
+            explanation: "Adam combines the benefits of Momentum (first moment, moving average of gradients) and RMSProp (second moment, moving average of squared gradients) for efficient, adaptive parameter updates."
+          },
+          {
+            q: "What is the primary benefit of Batch Normalization?",
+            options: ["It increases the dataset size.", "It normalizes the inputs to a layer for each mini-batch, reducing internal covariate shift and allowing for higher learning rates.", "It compresses the model size by removing weights.", "It generates new labels for unsupervised data."],
+            answer: 1,
+            explanation: "By keeping the mean and variance of layer inputs stable, Batch Normalization smooths the optimization landscape, drastically speeding up convergence."
+          },
+          {
+            q: "Which regularization technique tends to produce sparse weight matrices (many weights forced to exactly zero)?",
+            options: ["L2 Regularization (Ridge)", "Dropout", "Data Augmentation", "L1 Regularization (Lasso)"],
+            answer: 3,
+            explanation: "L1 regularization adds the absolute value of weights to the loss function. Its geometry inherently pushes less important feature weights to exactly zero, performing implicit feature selection."
+          },
+          {
+            q: "What is 'Early Stopping' in the context of deep learning?",
+            options: ["Halting the CPU when it gets too hot.", "Stopping the data preprocessing pipeline early.", "Monitoring the validation metric and stopping training when it begins to degrade, to prevent overfitting.", "A technique to stop the gradient from vanishing."],
+            answer: 2,
+            explanation: "Early stopping prevents the model from over-optimizing on the training data by stopping the training loop once performance on a hold-out validation set stops improving."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "llm",
+    name: "LLMs & Transformers",
+    icon: "💬",
+    active: true,
+    desc: "Attention, fine-tuning, RAG, prompt engineering",
+    sections: [
+      {
+        id: "transformer_arch",
+        name: "Transformer Architecture",
+        questions: [
+          {
+            q: "What is the core mathematical mechanism that allows Transformers to process sequences without recurrence?",
+            options: ["Long Short-Term Memory", "Self-Attention", "Convolutional Filters", "Markov Chains"],
+            answer: 1,
+            explanation: "Self-Attention computes a weighted average of all words in a sequence for every word, allowing the model to capture context and dependencies regardless of distance."
+          },
+          {
+            q: "Since Transformers process all tokens in parallel, how do they understand word order?",
+            options: ["They rely on standard recurrent loops.", "They process words one by one.", "They use Positional Encodings added to the input embeddings.", "They use a specialized sorting algorithm."],
+            answer: 2,
+            explanation: "Positional encodings inject information about the relative or absolute position of the tokens into the sequence, giving the model a sense of order."
+          },
+          {
+            q: "Why do Transformers use 'Multi-Head' attention instead of a single attention head?",
+            options: ["To allow the model to jointly attend to information from different representation subspaces at different positions.", "To decrease the parameter count.", "To compute gradients faster.", "To allow it to process images and text simultaneously."],
+            answer: 0,
+            explanation: "Different heads can learn to focus on different aspects of language (e.g., one head for syntax, another for coreference), creating a richer representation."
+          },
+          {
+            q: "Which family of models utilizes a 'Decoder-Only' architecture?",
+            options: ["BERT", "T5", "BART", "GPT (Generative Pre-trained Transformer)"],
+            answer: 3,
+            explanation: "Unlike BERT (Encoder-only) or T5 (Encoder-Decoder), the GPT series relies solely on the Transformer Decoder stack, making it highly effective for autoregressive text generation."
+          },
+          {
+            q: "What is the 'KV Cache' used for during LLM inference?",
+            options: ["Caching prompts to save network bandwidth.", "Storing previously computed Key and Value vectors to avoid recomputing them for every new token generated.", "Storing the model weights in VRAM.", "A database for Retrieval-Augmented Generation."],
+            answer: 1,
+            explanation: "In autoregressive generation, past tokens don't change. The KV cache stores their attention projections, saving massive amounts of compute at the cost of VRAM."
+          },
+          {
+            q: "When adjusting generation parameters, what happens when you set the 'Temperature' closer to 0?",
+            options: ["The output becomes completely random.", "The model refuses to answer.", "The output becomes more deterministic and focused on the highest probability tokens.", "The model generates text much faster."],
+            answer: 2,
+            explanation: "Lower temperature scales the logits before the softmax layer, exaggerating differences in probabilities and causing the model to almost always pick the most likely next word."
+          }
+        ]
+      },
+      {
+        id: "llm_finetuning",
+        name: "Fine-Tuning & Alignment",
+        questions: [
+          {
+            q: "What does LoRA (Low-Rank Adaptation) do to make fine-tuning large models highly efficient?",
+            options: ["It trains only the biases of the network.", "It freezes the pre-trained weights and injects trainable rank decomposition matrices into the layers.", "It quantizes the model to 1-bit precision.", "It deletes half of the transformer layers."],
+            answer: 1,
+            explanation: "By using low-rank matrices, LoRA dramatically reduces the number of trainable parameters (often by 10,000x), allowing fine-tuning of massive models on consumer GPUs."
+          },
+          {
+            q: "What is the primary goal of RLHF (Reinforcement Learning from Human Feedback)?",
+            options: ["To pre-train the model on a larger corpus of text.", "To teach the model how to play video games.", "To align the model's outputs with human preferences, such as helpfulness and harmlessness.", "To increase the context window size."],
+            answer: 2,
+            explanation: "RLHF uses a reward model trained on human rankings to update the LLM via reinforcement learning (usually PPO), discouraging toxic outputs and encouraging helpful ones."
+          },
+          {
+            q: "What is the difference between QLoRA and standard LoRA?",
+            options: ["QLoRA uses a Quantum computer.", "QLoRA fine-tunes only the Query matrices in attention.", "QLoRA loads the base model in 4-bit precision to save memory while training LoRA adapters.", "QLoRA is only for computer vision."],
+            answer: 2,
+            explanation: "QLoRA combines model quantization (reducing the precision of the frozen base model weights) with LoRA, enabling the fine-tuning of massive models on a single GPU."
+          },
+          {
+            q: "What is 'Catastrophic Forgetting' in the context of LLM fine-tuning?",
+            options: ["When the server crashes during training and deletes the weights.", "When fine-tuning on a new, narrow task causes the model to lose its general knowledge or abilities from pre-training.", "When the prompt is too long and the model forgets the beginning.", "When the KV cache gets cleared automatically."],
+            answer: 1,
+            explanation: "Because weights are aggressively updated to minimize loss on the new dataset, the model can 'forget' how to do tasks it previously knew unless precautions (like mixing datasets) are taken."
+          },
+          {
+            q: "What is 'Instruction Tuning'?",
+            options: ["Tuning the CPU instructions for faster inference.", "Fine-tuning a base model on datasets formatted as explicit commands or questions paired with the desired responses.", "Teaching the model to write assembly code.", "Aligning the model strictly using reward models without data."],
+            answer: 1,
+            explanation: "Instruction tuning transforms a raw next-word predictor (Base model) into an assistant that can follow user commands and formats (Instruct model)."
+          }
+        ]
+      },
+      {
+        id: "prompt_engineering",
+        name: "Prompt Engineering",
+        questions: [
+          {
+            q: "What is 'Chain of Thought' (CoT) prompting?",
+            options: ["Providing the model with multiple examples of inputs and outputs.", "Prompting the model to 'think step-by-step' or providing an example of the intermediate reasoning steps before the final answer.", "Linking multiple LLMs together in a pipeline.", "Forcing the model to output a Python script."],
+            answer: 1,
+            explanation: "CoT encourages the model to break down complex problems into logical steps, drastically improving performance on math, logic, and reasoning tasks."
+          },
+          {
+            q: "What distinguishes 'Few-Shot' prompting from 'Zero-Shot' prompting?",
+            options: ["Few-shot is for small models; zero-shot is for large models.", "Few-shot includes one or more input-output examples in the prompt to demonstrate the task; zero-shot includes none.", "Few-shot requires updating the model's weights.", "Few-shot uses images; zero-shot uses text."],
+            answer: 1,
+            explanation: "By providing a 'few' examples (shots), you guide the model's style, format, and reasoning process without actually fine-tuning its weights."
+          },
+          {
+            q: "How does Top-p (Nucleus) sampling differ from Top-k sampling?",
+            options: ["Top-p is used for training, Top-k is for inference.", "Top-k selects from the k most likely tokens; Top-p selects from the smallest set of tokens whose cumulative probability exceeds p.", "Top-p is much faster than Top-k.", "They are exactly the same concept."],
+            answer: 1,
+            explanation: "Nucleus sampling dynamically adjusts the number of token options based on the probability distribution. If the top 2 tokens make up 95% of the probability, Top-p (0.95) only considers those 2."
+          },
+          {
+            q: "What is a 'Hallucination' in the context of LLMs?",
+            options: ["When the UI glitches while rendering text.", "When the model generates text that is grammatically correct and sounds plausible but is factually incorrect or ungrounded.", "When the model outputs text in a different language.", "When the attention mechanism attends to future tokens."],
+            answer: 1,
+            explanation: "LLMs are probabilistic word predictors, not databases. They can confidently invent facts, citations, or URLs that do not exist if they lack the knowledge."
+          }
+        ]
+      },
+      {
+        id: "rag",
+        name: "Retrieval-Augmented Generation (RAG)",
+        questions: [
+          {
+            q: "What is the primary motivation for implementing a RAG architecture?",
+            options: ["To train an LLM from scratch faster.", "To reduce hallucinations by grounding the LLM's response in factually retrieved external documents.", "To reduce the cost of API calls by caching responses.", "To make the LLM completely open-source."],
+            answer: 1,
+            explanation: "RAG retrieves relevant information from a database and injects it into the prompt, allowing the LLM to synthesize an answer based on specific, accurate data rather than relying purely on internal knowledge."
+          },
+          {
+            q: "In a typical RAG pipeline, what is 'Chunking'?",
+            options: ["Breaking down a user prompt into multiple smaller prompts.", "Splitting large source documents into smaller, manageable text segments before generating embeddings.", "Combining multiple small LLMs into a 'chunk'.", "Removing stop words from the context."],
+            answer: 1,
+            explanation: "Because embedding models and LLMs have context limits, large documents must be split into chunks (e.g., 500 words each) to be indexed and retrieved effectively."
+          },
+          {
+            q: "Why are Cross-Encoders often used as a 'reranker' in advanced RAG pipelines?",
+            options: ["They generate vectors 10x faster than Bi-Encoders.", "They pass both the query and document through the transformer simultaneously, allowing for rich cross-attention and highly accurate relevance scoring.", "They don't require an LLM to generate the final response.", "They compress the vector database size."],
+            answer: 1,
+            explanation: "While Bi-Encoders are fast and great for initial retrieval (Vector DB), Cross-Encoders are computationally heavy but much more accurate at determining if a specific chunk actually answers the query."
+          },
+          {
+            q: "What is the 'Lost in the Middle' phenomenon observed in LLMs dealing with large contexts?",
+            options: ["The LLM loses its connection to the internet mid-generation.", "The LLM accurately extracts information at the very beginning or end of a long prompt but struggles to recall facts hidden in the middle.", "The embedding vectors become corrupted in the database.", "The model stops generating halfway through a sentence."],
+            answer: 1,
+            explanation: "Research shows that LLMs have a 'U-shaped' attention span over long contexts, degrading significantly when the relevant information is buried in the middle of a massive RAG payload."
+          },
+          {
+            q: "What is the difference between Dense Retrieval and Sparse Retrieval (like BM25) in a RAG system?",
+            options: ["Dense uses semantic embeddings to find meaning; Sparse uses exact keyword matching and frequencies.", "Dense uses keyword matching; Sparse uses embeddings.", "Dense is for images; Sparse is for text.", "Dense retrieval requires no database."],
+            answer: 0,
+            explanation: "Sparse retrieval (BM25, TF-IDF) looks for exact word matches. Dense retrieval (Vector Embeddings) understands synonyms and semantic meaning. Many modern RAGs use 'Hybrid Search' to combine both."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "nlp",
+    name: "Natural Language Processing (NLP)",
+    icon: "📝",
+    active: true,
+    desc: "Tokenization, embeddings, text classification, NER",
+    sections: [
+      {
+        id: "text_processing",
+        name: "Text Processing & Tokenization",
+        questions: [
+          {
+            q: "What is the primary difference between Stemming and Lemmatization?",
+            options: ["Stemming requires a dictionary lookup, while Lemmatization does not.", "Lemmatization simply chops off word endings, while Stemming reduces words to their valid linguistic base (lemma).", "Stemming forcefully chops off word endings (e.g., 'caring' -> 'car'), while Lemmatization uses linguistic rules to find the valid root word (e.g., 'caring' -> 'care').", "They are exactly the same algorithm."],
+            answer: 2,
+            explanation: "Stemming is a crude heuristic process. Lemmatization is more advanced, analyzing vocabulary and morphology to return a proper dictionary word."
+          },
+          {
+            q: "In the TF-IDF algorithm, what does 'IDF' (Inverse Document Frequency) achieve?",
+            options: ["It increases the weight of words that appear frequently in a specific document.", "It penalizes common words that appear across many documents (like 'the' or 'and'), reducing their weight.", "It calculates the total number of words in a document.", "It translates foreign words to English."],
+            answer: 1,
+            explanation: "IDF lowers the weight of globally frequent terms and raises the weight of rare terms, helping identify the unique, important words that characterize a specific document."
+          },
+          {
+            q: "How does Byte-Pair Encoding (BPE) build its vocabulary?",
+            options: ["By using a predefined dictionary of 50,000 English words.", "By splitting text exclusively on whitespace and punctuation.", "By converting all text to ASCII numerical codes.", "By iteratively merging the most frequently occurring adjacent pairs of characters or subwords until a target vocabulary size is reached."],
+            answer: 3,
+            explanation: "BPE is a subword tokenization algorithm used by models like GPT. It starts with single characters and merges common sequences, allowing it to handle rare words and avoid 'Out of Vocabulary' errors."
+          },
+          {
+            q: "What is the purpose of removing 'Stop Words' in traditional NLP pipelines?",
+            options: ["To remove punctuation and numbers.", "To eliminate highly common words (e.g., 'is', 'at', 'which') that carry little distinct meaning, reducing dimensionality.", "To stop the model from training too long.", "To remove toxic or offensive language."],
+            answer: 1,
+            explanation: "In traditional tasks like topic modeling or TF-IDF, stop words add noise and computational overhead without providing predictive value."
+          },
+          {
+            q: "What does 'OOV' stand for in NLP?",
+            options: ["Object Oriented Vector", "Out Of Vocabulary", "Order Of Verification", "Optimized Output Value"],
+            answer: 1,
+            explanation: "Out Of Vocabulary refers to words that appear in the testing data or real-world usage but were not present in the model's training dictionary."
+          }
+        ]
+      },
+      {
+        id: "word_embeddings",
+        name: "Word Embeddings",
+        questions: [
+          {
+            q: "How does the Word2Vec 'Skip-Gram' architecture learn word embeddings?",
+            options: ["It predicts a target word given its surrounding context words.", "It predicts the surrounding context words given a single target word.", "It factorizes a global word co-occurrence matrix.", "It uses character n-grams to form word vectors."],
+            answer: 1,
+            explanation: "Skip-gram takes a focus word and tries to predict the words appearing around it. (CBOW, the other Word2Vec architecture, does the exact opposite)."
+          },
+          {
+            q: "Which embedding model was developed by Stanford and generates vectors by leveraging global word co-occurrence statistics across a corpus?",
+            options: ["Word2Vec", "FastText", "GloVe (Global Vectors)", "ELMo"],
+            answer: 2,
+            explanation: "GloVe constructs a massive word-context co-occurrence matrix from the corpus and factorizes it, combining the benefits of local context windows and global matrix factorization."
+          },
+          {
+            q: "What is the main advantage of FastText over standard Word2Vec?",
+            options: ["FastText is based on transformers.", "FastText represents words as bags of character n-grams, allowing it to generate embeddings for misspelled or out-of-vocabulary words.", "FastText trains in O(1) time complexity.", "FastText does not require any training data."],
+            answer: 1,
+            explanation: "By breaking words into sub-parts (e.g., 'apple' -> '<ap', 'app', 'ppl', 'ple>'), FastText can construct a vector for a completely unseen word based on its recognizable morphemes."
+          },
+          {
+            q: "What is the key difference between 'Static' embeddings (like Word2Vec) and 'Contextual' embeddings (like BERT)?",
+            options: ["Static embeddings are integers; Contextual are floats.", "Static embeddings assign one fixed vector to a word regardless of context; Contextual embeddings change the vector based on the surrounding sentence.", "Contextual embeddings only work on punctuation.", "Static embeddings are much larger in size."],
+            answer: 1,
+            explanation: "In Word2Vec, the word 'bank' has the exact same vector whether it's a 'river bank' or 'bank account'. BERT dynamically generates a different vector depending on the sentence."
+          },
+          {
+            q: "Which mathematical metric is most commonly used to calculate the similarity between two word embedding vectors?",
+            options: ["Euclidean Distance", "Manhattan Distance", "Cosine Similarity", "Jaccard Index"],
+            answer: 2,
+            explanation: "Cosine similarity measures the cosine of the angle between two vectors. It is preferred over Euclidean distance because it normalizes for vector length, focusing purely on the 'direction' (meaning)."
+          }
+        ]
+      },
+      {
+        id: "nlp_tasks",
+        name: "NLP Tasks & Metrics",
+        questions: [
+          {
+            q: "What is the objective of Named Entity Recognition (NER)?",
+            options: ["To translate proper nouns to another language.", "To locate and classify entities in text into predefined categories such as Person, Organization, Location, or Date.", "To determine the emotional tone of a sentence.", "To generate names for fictional characters."],
+            answer: 1,
+            explanation: "NER is an information extraction task that scans unstructured text and tags specific noun phrases with their appropriate entity class."
+          },
+          {
+            q: "Which metric is the standard for evaluating Machine Translation systems by measuring n-gram overlap with a human reference?",
+            options: ["ROUGE", "F1-Score", "BLEU (Bilingual Evaluation Understudy)", "Perplexity"],
+            answer: 2,
+            explanation: "BLEU calculates the precision of n-grams (1-grams to 4-grams) between the machine's translation and one or more high-quality human reference translations."
+          },
+          {
+            q: "Unlike BLEU, which is precision-focused, which metric is commonly used for evaluating Text Summarization because it focuses heavily on Recall?",
+            options: ["ROUGE (Recall-Oriented Understudy for Gisting Evaluation)", "Accuracy", "METEOR", "WER (Word Error Rate)"],
+            answer: 0,
+            explanation: "ROUGE measures how much of the human reference summary is captured by the model's generated summary, making it ideal for checking if key information was omitted."
+          },
+          {
+            q: "What does Part-Of-Speech (POS) Tagging do?",
+            options: ["It identifies sentences as positive, negative, or neutral.", "It labels every word in a sentence with its grammatical role, such as noun, verb, adjective, or adverb.", "It parses the syntax tree of a paragraph.", "It corrects spelling mistakes."],
+            answer: 1,
+            explanation: "POS tagging assigns grammatical tags to words based on both their definition and their context within the sentence."
+          },
+          {
+            q: "In Sentiment Analysis, what does 'Polarity' refer to?",
+            options: ["The length of the document.", "Whether the text expresses a positive, negative, or neutral opinion.", "The geographical location of the author.", "The complexity of the vocabulary used."],
+            answer: 1,
+            explanation: "Polarity measures the emotion expressed in text, typically ranging from -1 (highly negative) to +1 (highly positive)."
+          }
+        ]
+      },
+      {
+        id: "sequence_models",
+        name: "Traditional Sequence Models",
+        questions: [
+          {
+            q: "What does the 'Markov Assumption' state in the context of sequence modeling?",
+            options: ["The future state is completely independent of all past and current states.", "The probability of the next state depends only on the current state (or a fixed number of previous states), not on the entire history.", "All states in a sequence have an equal probability.", "The sequence must be infinite."],
+            answer: 1,
+            explanation: "The Markov assumption simplifies sequence modeling by cutting off the historical dependency, assuming that the current state encapsulates everything needed to predict the next state."
+          },
+          {
+            q: "Which algorithm is used in Hidden Markov Models (HMMs) to find the most probable sequence of hidden states given an sequence of observations?",
+            options: ["K-Means", "The Viterbi Algorithm", "Dijkstra's Algorithm", "Apriori"],
+            answer: 1,
+            explanation: "The Viterbi algorithm uses dynamic programming to efficiently calculate the most likely path of hidden states (e.g., POS tags) that generated the observed sequence of words."
+          },
+          {
+            q: "How does a Conditional Random Field (CRF) differ from a Hidden Markov Model (HMM) for tasks like NER?",
+            options: ["CRF is a generative model; HMM is a discriminative model.", "CRF models the conditional probability P(Y|X) directly, allowing it to easily incorporate complex, overlapping features of the observation sequence.", "CRFs cannot be used for sequence tagging.", "HMMs are much slower to train than CRFs."],
+            answer: 1,
+            explanation: "Unlike HMMs which are generative (modeling joint probability P(X,Y)), CRFs are discriminative. This means CRFs don't assume the observation features are independent, allowing for much richer feature engineering."
+          },
+          {
+            q: "What is an N-gram Language Model primarily trying to estimate?",
+            options: ["The number of words in a sentence.", "The probability of the next word in a sequence given the previous N-1 words.", "The grammatical correctness of a sentence.", "The sentiment of a paragraph."],
+            answer: 1,
+            explanation: "An N-gram model calculates the conditional probability of a word based purely on the frequency of the preceding N-1 words seen in its training corpus."
+          },
+          {
+            q: "In language modeling, what does 'Perplexity' measure?",
+            options: ["How confused a human reader is by the text.", "How well a probability distribution or language model predicts a sample (lower perplexity means a better model).", "The number of OOV words in a text.", "The training time of a transformer."],
+            answer: 1,
+            explanation: "Perplexity is the exponentiated average negative log-likelihood of a sequence. A model with low perplexity assigns high probability to the test set, meaning it is 'less surprised' by the true data."
+          }
+        ]
+      }
+    ]
+  },
   { id: "python", name: "Python", icon: "🐍", active: false, desc: "Core Python, OOP, data structures & stdlib", sections: [] },
   { id: "mysql", name: "MySQL", icon: "🗄️", active: false, desc: "Queries, joins, indexing, transactions & optimization", sections: [] },
   { id: "git", name: "GitHub & Git", icon: "🐙", active: false, desc: "Branching, merging, PRs, actions & collaboration", sections: [] },
